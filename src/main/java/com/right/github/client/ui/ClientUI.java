@@ -1,6 +1,7 @@
 package main.java.com.right.github.client.ui;
 
 import main.java.com.right.github.client.core.ClientPartCore;
+import main.java.com.right.github.client.net.ClientNet;
 import main.java.com.right.github.client.ui.frame.MainFrame;
 import main.java.com.right.github.client.ui.panel.MainPanel;
 import main.java.com.right.github.core.Configs;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Queue;
 
 public class ClientUI extends ClientPartCore {
-    private final ExitPacket exitPacket;
     private MainFrame frame;
     private MainPanel panel;
 
@@ -24,14 +24,7 @@ public class ClientUI extends ClientPartCore {
     private final BufferedImage BACKGROUND_LOADING = TextureManager.getTexture("background/loading.png");
 
     public ClientUI(ExitPacket exitPacket){
-        this.exitPacket = exitPacket;
-    }
-
-    @Override
-    public void start(Queue<Packet> pAddressToSend) {
-        super.start(pAddressToSend);
-
-        frame = new MainFrame(exitPacket, pAddressToSend);
+        frame = new MainFrame(exitPacket);
         panel =new MainPanel();
 
         frame.getContentPane().add(panel);
@@ -45,6 +38,11 @@ public class ClientUI extends ClientPartCore {
         frame.setVisible(true);
 
         panel.drawBackground(BACKGROUND_LOADING);
+    }
+
+    @Override
+    public void start(Queue<Packet> pAddressToSend) {
+        super.start(pAddressToSend);
     }
 
     @Override
@@ -66,7 +64,8 @@ public class ClientUI extends ClientPartCore {
         }
 
         if (frame.getFlagAction() < 0){
-
+            sendPacket(new ClientNet.KeyInputChanged(frame.getFlagAction(), frame.getMouseX(), frame.getMouseY()));
+            frame.checked();
         }
 
         panel.rewrite();

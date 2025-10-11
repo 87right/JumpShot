@@ -82,7 +82,9 @@ public class Player extends Entity {
             // TODO: 描画と物理の分離
             if ((keyInput & 1)  > 0){
                 if ((keyInput & 2)  > 0){
-                    if (onGround){velocity.setX(0.0f);}
+                    if (onGround){
+                        velocity.setX(0.0f);
+                    }
 
                     if (getDisplayObjectData().getImage() == TEXTURE_L2 || getDisplayObjectData().getImage() == TEXTURE_L1){
                         getDisplayObjectData().setImage(TEXTURE_L1);

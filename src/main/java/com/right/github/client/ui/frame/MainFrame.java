@@ -11,7 +11,6 @@ import java.util.Queue;
 
 public class MainFrame extends JFrame implements KeyListener, MouseListener {
     private final ExitPacket exitPacket;
-    private final Queue<ClientPartCore.Packet> addressToNet;
 
     private int flagAction = 0;
     private final int flagRight = 1;
@@ -24,15 +23,14 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener {
     public final int keyLeft = KeyEvent.VK_A;
     public final int keyJump = KeyEvent.VK_SPACE;
 
-    public int mouseX = 0;
-    public int mouseY = 0;
+    private int mouseX = 0;
+    private int mouseY = 0;
 
     public boolean isInputConsumedByUI = false;
     public String textingText = "";
-    public MainFrame(ExitPacket pExitPacket, Queue<ClientPartCore.Packet> pAddressToNet){
+    public MainFrame(ExitPacket pExitPacket){
         super();
         this.exitPacket = pExitPacket;
-        this.addressToNet = pAddressToNet;
 
         addKeyListener(this);
         addMouseListener(this);
@@ -91,7 +89,7 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener {
             return;
         }
         switch (e.getKeyCode()){
-            case keyRight: flagAction = flagAction | flagRight; break;
+            case keyRight: flagAction = flagAction | flagRight;  break;
             case keyLeft: flagAction = flagAction | flagLeft; break;
             case keyJump: flagAction = flagAction | flagJump; break;
         }
@@ -205,5 +203,8 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener {
     }
     public int getMouseY() {
         return mouseY;
+    }
+    public void checked(){
+        flagAction = flagAction & ~flagChanged;
     }
 }

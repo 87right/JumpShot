@@ -1,5 +1,7 @@
 package main.java.com.right.github.client.core;
 
+import main.java.com.right.github.shared.Logs;
+
 import java.util.ArrayDeque;
 import java.util.Queue;
 

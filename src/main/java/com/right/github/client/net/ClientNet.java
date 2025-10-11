@@ -13,6 +13,7 @@ public class ClientNet extends ClientPartCore {
     private ExitPacket exitPacket;
 
     public ClientNet(Queue<BasePacket> pPacketsClientToServer, Queue<BasePacket> pPacketsServerToClient, ExitPacket pExitPacket){
+        super();
         packetsClientToServer = pPacketsClientToServer;
         packetsServerToClient = pPacketsServerToClient;
 

@@ -62,7 +62,7 @@ public class Client {
     public void start(Queue<BasePacket> packetsClientToServer) {
         clientNet.start(clientData.getReceiveBox());
         clientData.start(clientUI.getReceiveBox());
-        clientUI.start(clientUI.getReceiveBox());
+        clientUI.start(clientNet.getReceiveBox());
     }
     public void update(Queue<BasePacket> pReceivedPackets, Queue<BasePacket> pPacketsToSend){
 //        checkPackets(pReceivedPackets);
