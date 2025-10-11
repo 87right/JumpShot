@@ -5,7 +5,6 @@ import main.java.com.right.github.core.DisplayObjectData;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
-import java.util.Queue;
 
 public class ClientData{
     // ゲーム全体に関するデータたち
@@ -15,18 +14,12 @@ public class ClientData{
     // ステージに関するデータたち
     private BlockState[][] blockStates = null;
     private ArrayList<DisplayObjectData> displayObjectData = new ArrayList<>();
-    private boolean isDisplayObjectDataChanged;
+    private boolean isBlockChanged = false;
 
     public ClientData(){}
 
     public void start() {
         isRunning = true;
-    }
-
-    public void update() {
-        for (DisplayObjectData entity: displayObjectData){
-            if (entity.isUnChecked()){isDisplayObjectDataChanged = true;}
-        }
     }
 
     public void end() {
@@ -41,15 +34,12 @@ public class ClientData{
     public ArrayList<DisplayObjectData> getDisplayObjectData() {
         return displayObjectData;
     }
-     public boolean isDisplayObjectDataChanged(){
-        if (isDisplayObjectDataChanged){
-            isDisplayObjectDataChanged = false;
-            return true;
-        }
-        return false;
+    public boolean isBlockChanged() {
+        return isBlockChanged;
     }
     public void setBlockStates(BlockState[][] blockStates){
         this.blockStates = blockStates;
+        isBlockChanged = true;
     }
     public void setDisplayObjectData(ArrayList<DisplayObjectData> displayObjectData) {
         this.displayObjectData = displayObjectData;
@@ -57,7 +47,7 @@ public class ClientData{
     public void addDisplayObjectData(DisplayObjectData displayObjectData){
         this.displayObjectData.add(displayObjectData);
     }
-     public void stop(){
+    public void stop(){
         isRunning = false;
      }
 
