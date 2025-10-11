@@ -1,4 +1,4 @@
-package main.java.com.right.github.client.ui.panel;
+package main.java.com.right.github.client.ui.panelmanager.panel;
 
 
 import main.java.com.right.github.core.Configs;

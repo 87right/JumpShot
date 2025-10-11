@@ -1,13 +1,10 @@
-package main.java.com.right.github.client.ui.frame;
+package main.java.com.right.github.client.ui.framemanager.frame;
 
 
-import main.java.com.right.github.client.core.ClientPartCore;
-import main.java.com.right.github.client.net.ClientNet;
 import main.java.com.right.github.shared.packet.ExitPacket;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.Queue;
 
 public class MainFrame extends JFrame implements KeyListener, MouseListener {
     private final ExitPacket exitPacket;

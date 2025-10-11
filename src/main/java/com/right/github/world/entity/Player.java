@@ -76,7 +76,7 @@ public class Player extends Entity {
 
             boolean onGround = onGround(pLevel);
             if ((keyInput & 4)  > 0 && onGround) {
-                velocity.setY(-10.0f);
+                velocity.setY(-6.0f);
             }
 
             // TODO: 描画と物理の分離
@@ -95,7 +95,7 @@ public class Player extends Entity {
                     if (onGround){
                         velocity.setX(5.0f);
                     }else {
-                        acceleration.addX(0.01f);
+                        acceleration.addX(0.06f);
                     }
                     if (getDisplayObjectData().getImage() == TEXTURE_R1){
                         getDisplayObjectData().setImage(TEXTURE_R2);
@@ -108,7 +108,7 @@ public class Player extends Entity {
                     if (onGround){
                         velocity.setX(-5.0f);
                     }else {
-                        acceleration.addX(-0.01f);
+                        acceleration.addX(-0.06f);
                     }
                     if (getDisplayObjectData().getImage() == TEXTURE_L1){
                         getDisplayObjectData().setImage(TEXTURE_L2);
@@ -130,16 +130,16 @@ public class Player extends Entity {
         pos = proPos;
 
         // さすがに速さ無制限はまずい
-        if (velocity.getX() < -5.0f){
-            velocity.setX(-5.0f);
-        }else if (velocity.getX() > 5.0f){
-            velocity.setX(5.0f);
+        if (velocity.getX() < -10.0f){
+            velocity.setX(-10.0f);
+        }else if (velocity.getX() > 10.0f){
+            velocity.setX(10.0f);
         }
 
-        if (velocity.getY() < -5.0f){
-            velocity.setY(-5.0f);
-        }else if (velocity.getY() > 5.0f){
-            velocity.setY(5.0f);
+        if (velocity.getY() < -10.0f){
+            velocity.setY(-10.0f);
+        }else if (velocity.getY() > 10.0f){
+            velocity.setY(10.0f);
         }
 
         getDisplayObjectData().setX(pos.getX());
