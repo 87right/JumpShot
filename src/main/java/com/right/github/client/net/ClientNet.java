@@ -6,10 +6,10 @@ import main.java.com.right.github.shared.packet.*;
 import java.util.Queue;
 
 public class ClientNet{
-    private Queue<BasePacket> packetsClientToServer;
-    private Queue<BasePacket> packetsServerToClient;
+    private final Queue<BasePacket> packetsClientToServer;
+    private final Queue<BasePacket> packetsServerToClient;
 
-    private ExitPacket exitPacket;
+    private final ExitPacket exitPacket;
 
     private ClientData clientData;
 

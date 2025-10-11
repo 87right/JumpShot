@@ -11,6 +11,7 @@ public class StagePanelManager extends AbstractPanelManager{
         for (DisplayObjectData entity: clientData.getDisplayObjectData()){
             if (entity.isUnChecked()){
                 isDisplayObjectDataChanged = true;
+                break;
             }
         }
         if (isDisplayObjectDataChanged){
