@@ -1,6 +1,6 @@
 package main.java.com.right.github.shared.packet;
 
-public class ExitPacket extends BasePacket{
+public class ExitPacket implements Packet{
     private boolean flag;
     public ExitPacket(){
         this.flag = false;

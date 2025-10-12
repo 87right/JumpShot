@@ -2,7 +2,7 @@ package main.java.com.right.github.world.entity;
 
 
 import main.java.com.right.github.core.*;
-import main.java.com.right.github.shared.packet.BasePacket;
+import main.java.com.right.github.shared.packet.Packet;
 import main.java.com.right.github.world.level.Level;
 
 import java.util.Queue;
@@ -69,7 +69,7 @@ public class Entity {
         this.hasGravity = hasGravity;
     }
 
-    public void update(Queue<BasePacket> toSendPackets, Level pLevel){
+    public void update(Queue<Packet> toSendPackets, Level pLevel){
         pos = pos.move(velocity);
         velocity = velocity.add(acceleration);
 

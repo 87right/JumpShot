@@ -15,7 +15,7 @@ public class Client {
     private final ClientData clientData;
     private final ClientUI clientUI;
 
-    public Client(Queue<BasePacket> pPacketsClientToServer, Queue<BasePacket> pPacketsServerToClient){
+    public Client(Queue<Packet> pPacketsClientToServer, Queue<Packet> pPacketsServerToClient){
         exitPacket = new ExitPacket();
 
         clientNet = new ClientNet(pPacketsClientToServer, pPacketsServerToClient, exitPacket);
@@ -23,12 +23,12 @@ public class Client {
         clientUI = new ClientUI(exitPacket);
     }
 
-    public void start(Queue<BasePacket> packetsClientToServer) {
+    public void start(Queue<Packet> packetsClientToServer) {
         clientData.start();
         clientNet.start(clientData);
         clientUI.start(clientNet, clientData);
     }
-    public void update(Queue<BasePacket> pReceivedPackets, Queue<BasePacket> pPacketsToSend){
+    public void update(){
         clientNet.update();
         clientUI.update();
     }

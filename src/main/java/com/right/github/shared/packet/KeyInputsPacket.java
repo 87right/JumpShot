@@ -1,6 +1,6 @@
 package main.java.com.right.github.shared.packet;
 
-public class KeyInputsPacket extends BasePacket{
+public class KeyInputsPacket implements Packet{
     public final int mouseX;
     public final int mouseY;
     private int content = 0;

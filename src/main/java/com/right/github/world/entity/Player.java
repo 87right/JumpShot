@@ -2,13 +2,12 @@ package main.java.com.right.github.world.entity;
 
 
 import main.java.com.right.github.core.*;
-import main.java.com.right.github.shared.packet.BasePacket;
 import main.java.com.right.github.shared.packet.KeyInputsPacket;
+import main.java.com.right.github.shared.packet.Packet;
 import main.java.com.right.github.shared.packet.PlayerPacket;
 import main.java.com.right.github.world.level.block.Block;
 import main.java.com.right.github.world.level.Level;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Queue;
 
@@ -24,7 +23,7 @@ public class Player extends Entity {
 
     private BlockPos blockPos;
 
-    public Player(Pos pSpawnPos, Queue<BasePacket> toSendPackets){
+    public Player(Pos pSpawnPos, Queue<Packet> toSendPackets){
         this.setState(pSpawnPos, new Vec2D(0f, 0.1f), new Vec2D(0f, 0f), Configs.PLAYER_WIDTH, Configs.PLAYER_HEIGHT);
         toSendPackets.add(new PlayerPacket.SendStatePacket(getDisplayObjectData()));
         setAABB(new AABB(Configs.PLAYER_WIDTH, Configs.PLAYER_HEIGHT));
@@ -33,7 +32,7 @@ public class Player extends Entity {
     }
 
     @Override
-    public void update(Queue<BasePacket> toSendPackets, Level pLevel) {
+    public void update(Queue<Packet> toSendPackets, Level pLevel) {
 
         Pos proPos = pos.move(velocity);
         velocity = velocity.add(acceleration);

@@ -1,20 +1,20 @@
 package main.java.com.right.github.client.net;
 
 import main.java.com.right.github.client.data.ClientData;
-import main.java.com.right.github.core.ClientModeRequestPacket;
+import main.java.com.right.github.shared.packet.ClientModeRequestPacket;
 import main.java.com.right.github.shared.packet.*;
 
 import java.util.Queue;
 
 public class ClientNet{
-    private final Queue<BasePacket> packetsClientToServer;
-    private final Queue<BasePacket> packetsServerToClient;
+    private final Queue<Packet> packetsClientToServer;
+    private final Queue<Packet> packetsServerToClient;
 
     private final ExitPacket exitPacket;
 
     private ClientData clientData;
 
-    public ClientNet(Queue<BasePacket> pPacketsClientToServer, Queue<BasePacket> pPacketsServerToClient, ExitPacket pExitPacket){
+    public ClientNet(Queue<Packet> pPacketsClientToServer, Queue<Packet> pPacketsServerToClient, ExitPacket pExitPacket){
         super();
         packetsClientToServer = pPacketsClientToServer;
         packetsServerToClient = pPacketsServerToClient;
@@ -30,7 +30,7 @@ public class ClientNet{
     public void update() {
 
         while (! packetsServerToClient.isEmpty()){
-            BasePacket currentPacket = packetsServerToClient.poll();
+            Packet currentPacket = packetsServerToClient.poll();
             if (currentPacket instanceof ExitPacket){
                 exitPacket.turnOnFlag();
             } else if (currentPacket instanceof LevelPacket levelPacket) {

@@ -4,7 +4,7 @@ import main.java.com.right.github.client.Client;
 import main.java.com.right.github.server.EnumServerType;
 import main.java.com.right.github.server.Server;
 import main.java.com.right.github.shared.Logs;
-import main.java.com.right.github.shared.packet.BasePacket;
+import main.java.com.right.github.shared.packet.Packet;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -17,8 +17,8 @@ public class Main{
         long startTime = System.currentTimeMillis();
         int MSPT = 1000 / TPS;
 
-        Queue<BasePacket> packetsClientToServer = new ArrayDeque<>();
-        Queue<BasePacket> packetsServerToClient = new ArrayDeque<>();
+        Queue<Packet> packetsClientToServer = new ArrayDeque<>();
+        Queue<Packet> packetsServerToClient = new ArrayDeque<>();
 
         Client client = new Client(packetsClientToServer, packetsServerToClient);
         Server server = new Server(packetsServerToClient);
@@ -29,7 +29,7 @@ public class Main{
         server.start(packetsServerToClient, EnumServerType.GAME);
 
         server.update(packetsClientToServer, packetsServerToClient);
-        client.update(packetsServerToClient, packetsClientToServer);
+        client.update();
 
         System.out.println("\n");
         Logs.Info("Game has took " + (System.currentTimeMillis() - startTime) + " ms to start.\n");
@@ -37,7 +37,7 @@ public class Main{
             startTime = System.currentTimeMillis();
 
             server.update(packetsClientToServer, packetsServerToClient);
-            client.update(packetsServerToClient, packetsClientToServer);
+            client.update();
 
             try{
                 if (MSPT + startTime - System.currentTimeMillis() > 0){

@@ -2,6 +2,7 @@ package main.java.com.right.github.client.data;
 
 import main.java.com.right.github.client.ui.EnumUIModes;
 import main.java.com.right.github.core.DisplayObjectData;
+import main.java.com.right.github.core.SelectableItem;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class ClientData{
     // region EMPTY
     // endregion
     // region CHOOSING ITEM
+    private SelectableItem[] selectableItems;
     // endregion
     // region CHOOSING PACKAGE
     // endregion
@@ -89,6 +91,12 @@ public class ClientData{
     // region EMPTY
     // endregion
     // region CHOOSING ITEM
+    public SelectableItem[] getSelectableItems() {
+        return selectableItems;
+    }
+    public void setSelectableItems(SelectableItem[] selectableItems) {
+        this.selectableItems = selectableItems;
+    }
     // endregion
     // region CHOOSING PACKAGE
     // endregion

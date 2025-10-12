@@ -2,12 +2,9 @@ package main.java.com.right.github.server;
 
 
 import main.java.com.right.github.client.ui.EnumUIModes;
-import main.java.com.right.github.core.ClientModeRequestPacket;
+import main.java.com.right.github.shared.packet.*;
 import main.java.com.right.github.server.game.Game;
 import main.java.com.right.github.shared.Logs;
-import main.java.com.right.github.shared.packet.BasePacket;
-import main.java.com.right.github.shared.packet.ExitPacket;
-import main.java.com.right.github.shared.packet.KeyInputsPacket;
 
 import java.util.Queue;
 
@@ -21,17 +18,17 @@ public class Server {
 
     private int temp = 0;
 
-    public Server(Queue<BasePacket> pPacketsToSend){
+    public Server(Queue<Packet> pPacketsToSend){
         isRunning = true;
         exitPacket = new ExitPacket();
         this.game = new Game(pPacketsToSend);
     }
 
-    public void start(Queue<BasePacket> pPacketsToSend, EnumServerType pServerType){
+    public void start(Queue<Packet> pPacketsToSend, EnumServerType pServerType){
         serverType = pServerType;
         game.start(pPacketsToSend);
     }
-    public void update(Queue<BasePacket> pReceivedPackets, Queue<BasePacket> pPacketsToSend){
+    public void update(Queue<Packet> pReceivedPackets, Queue<Packet> pPacketsToSend){
         checkPackets(pReceivedPackets);
 
         if (serverType == EnumServerType.GAME){
@@ -51,9 +48,9 @@ public class Server {
         }
     }
 
-    private void checkPackets(Queue<BasePacket> pPackets){
+    private void checkPackets(Queue<Packet> pPackets){
         while (! pPackets.isEmpty()){
-            BasePacket currentPacket = pPackets.poll();
+            Packet currentPacket = pPackets.poll();
             if (currentPacket instanceof ExitPacket){
                 cleanUP();
                 isRunning = false;

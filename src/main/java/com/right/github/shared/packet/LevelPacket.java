@@ -4,9 +4,9 @@ package main.java.com.right.github.shared.packet;
 import main.java.com.right.github.shared.Logs;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
-public class LevelPacket extends BasePacket{
-    public static class BulletPacket extends LevelPacket{
-        public static class SendStatePacket extends BulletPacket{
+public class LevelPacket implements Packet{
+    public static class BulletPacket extends LevelPacket implements Packet{
+        public static class SendStatePacket extends BulletPacket implements Packet{
 
         }
     }
