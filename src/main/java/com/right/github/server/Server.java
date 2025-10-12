@@ -67,6 +67,8 @@ public class Server {
                 isRunning = false;
             } else if (currentPacket instanceof KeyInputsPacket pKeyInputsPacket) {
                 game.keyInputs(pKeyInputsPacket);
+            } else if (currentPacket instanceof ClientModeSendDataPacket.ChoosingItemResponse(int id)) {
+                System.out.println(id);
             }
         }
 

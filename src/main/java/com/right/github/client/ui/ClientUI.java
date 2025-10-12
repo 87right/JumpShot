@@ -19,6 +19,8 @@ public class ClientUI {
     private ClientData clientData;
     private ClientNet clientNet;
 
+    private final Insets insets;
+
     public ClientUI(ExitPacket exitPacket){
         frame = new MainFrame(exitPacket);
         panel =new MainPanel();
@@ -28,10 +30,11 @@ public class ClientUI {
         frame.setBackground(Color.WHITE);	// windowの背景色設定
         frame.setResizable(false); // TODO: ReSizeの有効化&システム構築
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setBounds(0, 0, Configs.SCREEN_WIDTH + 10, Configs.SCREEN_HEIGHT + 35);
-        frame.setLocationRelativeTo(null);
         frame.setTitle("Hoge");
         frame.setVisible(true);
+        insets = frame.getInsets();
+        frame.setBounds(0, 0, Configs.SCREEN_WIDTH + insets.left + insets.right, Configs.SCREEN_HEIGHT + insets.top + insets.bottom);
+        frame.setLocationRelativeTo(null);
     }
 
     public void start(ClientNet clientNet, ClientData clientData) {

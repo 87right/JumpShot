@@ -131,6 +131,10 @@ public class MainPanel extends JPanel {
         graParticles.setColor(new Color(weakness, weakness, weakness, weakness));
         graParticles.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);
     }
+    public void fillRect(int x, int y, int width, int height, int r, int g, int b, int a){
+        graParticles.setColor(new Color(r, g, b, a));
+        graParticles.fillRect(x, y, width, height);
+    }
 
     public void drawProgress(int x, int y, int width, int height, int pProgress){
         float progress;
@@ -153,6 +157,6 @@ public class MainPanel extends JPanel {
     }
     public void drawText(int x, int y, String content, int size){
         graUI.setFont(new Font("Arial", Font.BOLD, size));
-        graUI.drawString(content, x, y);
+        graUI.drawString(content, x, y + size);
     }
 }

@@ -9,6 +9,11 @@ public class ChoosingItemPanelManager extends AbstractPanelManager {
     private Integer mouseX = 0;
     private Integer mouseY = 0;
 
+    private final int fontSize = Configs.DEFAULT_FONT_SIZE;
+    private final int margin = (int) (Configs.MARGIN_ON_STRING * 0.5f);
+    private final int indent = fontSize + Configs.MARGIN_ON_STRING;
+    private final int topY = Configs.TITLE_HEIGHT;
+
     @Override
     public void enter(MainPanel panel, ClientData clientData) {
         panel.clearBackground();
@@ -22,10 +27,19 @@ public class ChoosingItemPanelManager extends AbstractPanelManager {
 
     @Override
     public void draw(MainPanel panel, ClientData clientData) {
+        boolean someIsHovered = false;
         for (int i = 0; i < clientData.getSelectableItems().length; i++) {
-            int fontSize = (int) (Configs.SCREEN_HEIGHT * 0.05f);
+            int currentY = indent * i + topY;
             SelectableItem selectableItem = clientData.getSelectableItems()[i];
-            panel.drawText(40, (fontSize + 10) * (i + 4), "- " + selectableItem.getName(), fontSize);
+            panel.drawText(40, currentY, "- " + selectableItem.getName(), fontSize);
+            if (clientData.getMouseY() >= currentY - margin && clientData.getMouseY() <= currentY + indent - margin){
+                panel.clearParticles();
+                panel.fillRect(30, currentY + margin, Configs.SCREEN_WIDTH, fontSize, 0, 0, 0, 128);
+                someIsHovered = true;
+            }
+        }
+        if (!someIsHovered){
+            panel.clearParticles();
         }
     }
 

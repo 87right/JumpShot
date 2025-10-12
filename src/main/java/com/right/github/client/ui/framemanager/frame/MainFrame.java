@@ -14,14 +14,20 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
     private final int flagLeft = 1 << 1;
     private final int flagJump = 1 << 2;
     private final int flagShot = 1 << 3;
+
+    private int uiInput = 0;
+    private final int lmb = 1;
+    private final int mmb = 1 << 1;
+    private final int rmb = 1 << 2;
+
     private final int flagChanged = 1 << 31;
 
     public final int keyRight = KeyEvent.VK_D;
     public final int keyLeft = KeyEvent.VK_A;
     public final int keyJump = KeyEvent.VK_SPACE;
 
-    private Integer mouseX = 0;
-    private Integer mouseY = 0;
+    private int mouseX = 0;
+    private int mouseY = 0;
 
     public boolean isInputConsumedByUI = false;
     public String textingText = "";
@@ -31,6 +37,7 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
 
         addKeyListener(this);
         addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     // region KeyListener
@@ -111,20 +118,25 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
         if (!isInputConsumedByUI){
             return;
         }
+        uiInput = 0;
         // マウスのボタンがクリックされた
         switch ( e.getButton() ) {
             case MouseEvent.BUTTON1:
+                uiInput = uiInput | lmb;
 //                System.out.println("左クリック");
                 break;
             case MouseEvent.BUTTON2:
+                uiInput = uiInput | mmb;
 //                System.out.println("ホイールクリック");
                 break;
             case MouseEvent.BUTTON3:
+                uiInput = uiInput | rmb;
 //                System.out.println("右クリック");
                 break;
         }
         mouseX = e.getX();
         mouseY = e.getY();
+        uiInput = uiInput | flagChanged;
 //        System.out.println("クリック座標:"+e.getPoint().getX() + ", " + e.getPoint().getY());
     }
     @Override
@@ -200,6 +212,8 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
         if (!isInputConsumedByUI){
             return;
         }
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -211,16 +225,24 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
     }
     //endregion
 
+
+    public void setInputConsumedByUI(boolean inputConsumedByUI) {
+        isInputConsumedByUI = inputConsumedByUI;
+    }
     public int getFlagAction() {
         return flagAction;
     }
     public int getMouseX() {
-        return mouseX;
+        return mouseX - getInsets().left;
     }
     public int getMouseY() {
-        return mouseY;
+        return mouseY - getInsets().top;
     }
+    public int getUiInput(){return uiInput;}
     public void checked(){
         flagAction = flagAction & ~flagChanged;
+    }
+    public void checkedUIInput() {
+        uiInput = uiInput & ~flagChanged;
     }
 }

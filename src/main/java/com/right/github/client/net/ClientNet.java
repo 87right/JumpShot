@@ -63,4 +63,7 @@ public class ClientNet{
     public void keyInputChanged(int content, int mouseX, int mouseY){
         packetsClientToServer.add(new KeyInputsPacket(content, mouseX, mouseY));
     }
+    public void responseChoosingItem(int id){
+        packetsClientToServer.add(new ClientModeSendDataPacket.ChoosingItemResponse(id));
+    }
 }

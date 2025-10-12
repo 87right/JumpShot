@@ -6,6 +6,7 @@ import main.java.com.right.github.core.SelectableItem;
 import main.java.com.right.github.core.TextureManager;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -16,8 +17,8 @@ public class ClientData{
     private EnumUIModes currentUIMode = EnumUIModes.LOADING_MODE;
     private EnumUIModes requestedUIMode = EnumUIModes.LOADING_MODE;
 
-    private Integer mouseX;
-    private Integer mouseY;
+    private int mouseX = 0;
+    private int mouseY = 0;
 
     public final BufferedImage BACKGROUND_SELECT = TextureManager.getTexture("background/select.png");
     // endregion
@@ -65,17 +66,17 @@ public class ClientData{
     public EnumUIModes getRequestedUIMode() {
         return requestedUIMode;
     }
-    public Integer getMouseX() {
+    public int getMouseX() {
         return mouseX;
     }
-    public Integer getMouseY() {
+    public int getMouseY() {
         return mouseY;
     }
 
-    public void setMouseX(Integer mouseX) {
+    public void setMouseX(int mouseX) {
         this.mouseX = mouseX;
     }
-    public void setMouseY(Integer mouseY) {
+    public void setMouseY(int mouseY) {
         this.mouseY = mouseY;
     }
     public void setCurrentUIMode(EnumUIModes currentUIMode) {
