@@ -1,6 +1,7 @@
 package main.java.com.right.github.client.net;
 
 import main.java.com.right.github.client.data.ClientData;
+import main.java.com.right.github.core.ClientModeRequestPacket;
 import main.java.com.right.github.shared.packet.*;
 
 import java.util.Queue;
@@ -40,6 +41,8 @@ public class ClientNet{
                 }else if (levelPacket instanceof PlayerPacket.SendStatePacket sendStatePacket) {
                     clientData.addDisplayObjectData(sendStatePacket.getDisplayObjectData());
                 }
+            } else if (currentPacket instanceof ClientModeRequestPacket clientModeRequestPacket) {
+                clientData.requestUIMode(clientModeRequestPacket.getUiModes());
             }
         }
         if (exitPacket.getFlag()){

@@ -1,6 +1,8 @@
 package main.java.com.right.github.server;
 
 
+import main.java.com.right.github.client.ui.EnumUIModes;
+import main.java.com.right.github.core.ClientModeRequestPacket;
 import main.java.com.right.github.server.game.Game;
 import main.java.com.right.github.shared.Logs;
 import main.java.com.right.github.shared.packet.BasePacket;
@@ -16,6 +18,8 @@ public class Server {
     private EnumServerType serverType = EnumServerType.GAME;
 
     private Game game;
+
+    private int temp = 0;
 
     public Server(Queue<BasePacket> pPacketsToSend){
         isRunning = true;
@@ -38,6 +42,12 @@ public class Server {
         if (exitPacket.getFlag()){
             isRunning = false;
             pPacketsToSend.add(exitPacket);
+        }
+
+        if (temp == 60){
+            pPacketsToSend.add(new ClientModeRequestPacket(EnumUIModes.STAGE_MODE));
+        } else if (temp < 60) {
+            temp ++;
         }
     }
 

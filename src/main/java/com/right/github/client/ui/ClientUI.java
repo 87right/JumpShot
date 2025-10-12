@@ -19,9 +19,6 @@ public class ClientUI {
     private ClientData clientData;
     private ClientNet clientNet;
 
-    // Debug用背景
-    private final BufferedImage BACKGROUND_LOADING = TextureManager.getTexture("background/loading.png");
-
     public ClientUI(ExitPacket exitPacket){
         frame = new MainFrame(exitPacket);
         panel =new MainPanel();
@@ -29,22 +26,28 @@ public class ClientUI {
         frame.getContentPane().add(panel);
 
         frame.setBackground(Color.WHITE);	// windowの背景色設定
-        frame.setResizable(true);
+        frame.setResizable(false); // TODO: ReSizeの有効化&システム構築
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setBounds(0, 0, Configs.SCREEN_WIDTH + 10, Configs.SCREEN_HEIGHT + 35);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Hoge");
         frame.setVisible(true);
-
-        panel.drawBackground(BACKGROUND_LOADING);
     }
 
     public void start(ClientNet clientNet, ClientData clientData) {
         this.clientNet = clientNet;
         this.clientData = clientData;
+
+        this.clientData.getCurrentUIMode().enter(frame, panel, this.clientNet, this.clientData);
     }
 
     public void update() {
+
+        if (clientData.getCurrentUIMode() != clientData.getRequestedUIMode()){
+            clientData.getCurrentUIMode().exit(frame, panel, clientNet, clientData);
+            clientData.setCurrentUIMode(clientData.getRequestedUIMode());
+            clientData.getCurrentUIMode().enter(frame, panel, clientNet, clientData);
+        }
 
         clientData.getCurrentUIMode().input(frame, clientNet, clientData);
         clientData.getCurrentUIMode().draw(panel, clientData);

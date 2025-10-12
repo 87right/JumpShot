@@ -1,7 +1,9 @@
 package main.java.com.right.github.world.level;
 
 
+import main.java.com.right.github.client.ui.EnumUIModes;
 import main.java.com.right.github.core.BlockPos;
+import main.java.com.right.github.core.ClientModeRequestPacket;
 import main.java.com.right.github.core.Pos;
 import main.java.com.right.github.shared.packet.BasePacket;
 import main.java.com.right.github.shared.packet.KeyInputsPacket;

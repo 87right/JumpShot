@@ -7,14 +7,17 @@ import main.java.com.right.github.world.level.block.state.BlockState;
 import java.util.ArrayList;
 
 public class ClientData{
-    // ゲーム全体に関するデータたち
+    // COMMON
     private boolean isRunning;
-    private EnumUIModes currentUIMode = EnumUIModes.STAGE_MODE;
+    private EnumUIModes currentUIMode = EnumUIModes.LOADING_MODE;
+    private EnumUIModes requestedUIMode = EnumUIModes.LOADING_MODE;
 
-    // ステージに関するデータたち
+    // STAGE
     private BlockState[][] blockStates = null;
     private ArrayList<DisplayObjectData> displayObjectData = new ArrayList<>();
     private boolean isBlockChanged = false;
+
+    //
 
     public ClientData(){}
 
@@ -28,6 +31,9 @@ public class ClientData{
     public EnumUIModes getCurrentUIMode() {
         return currentUIMode;
     }
+    public EnumUIModes getRequestedUIMode() {
+        return requestedUIMode;
+    }
     public BlockState[][] getBlockStates() {
         return blockStates;
     }
@@ -36,6 +42,12 @@ public class ClientData{
     }
     public boolean isBlockChanged() {
         return isBlockChanged;
+    }
+    public void setCurrentUIMode(EnumUIModes currentUIMode) {
+        this.currentUIMode = currentUIMode;
+    }
+    public void requestUIMode(EnumUIModes requestedUIMode) {
+        this.requestedUIMode = requestedUIMode;
     }
     public void setBlockStates(BlockState[][] blockStates){
         this.blockStates = blockStates;

@@ -50,6 +50,21 @@ public class MainPanel extends JPanel {
         paintComponent(getGraphics());
     }
 
+    public void clearBackground(){
+        graBackground.setComposite(AlphaComposite.Clear);
+        graBackground.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);
+        graBackground.setComposite(AlphaComposite.SrcOver);
+    }
+    public void clearEntities(){
+        graEntities.setComposite(AlphaComposite.Clear);
+        graEntities.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);
+        graEntities.setComposite(AlphaComposite.SrcOver);
+    }
+    public void clearBlocks(){
+        graBlocks.setComposite(AlphaComposite.Clear);
+        graBlocks.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);
+        graBlocks.setComposite(AlphaComposite.SrcOver);
+    }
     public void drawBackground(BufferedImage pBackground){
         graBackground.drawImage(pBackground, 0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT, this);
         rewrite();
@@ -61,11 +76,7 @@ public class MainPanel extends JPanel {
         drawEntity(pEntity.getImage(), (int) pEntity.getX(), (int) pEntity.getY(), pEntity.getWidth(), pEntity.getHeight());
     }
     public void drawEntities(ArrayList<DisplayObjectData> pEntities){
-        graEntities.setComposite(AlphaComposite.Clear);
-        graEntities.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);
-        graEntities.setComposite(AlphaComposite.SrcOver);
-        graEntities.setColor(Color.BLACK);
-
+        clearEntities();
         for (DisplayObjectData displayObjectData : pEntities){
             drawEntity(displayObjectData);
         }
@@ -74,7 +85,7 @@ public class MainPanel extends JPanel {
         if (pBlockTextures.length != 15 || pBlockTextures[0].length != 20){
             throw new IllegalArgumentException("Invalid Size of Block Texture");
         }
-
+        clearBlocks();
         for (int y = 0; y < 15; y++) {
             for (int x = 0; x < 20; x++) {
                 graBlocks.drawImage(pBlockTextures[y][x], x * Configs.BLOCK_SIZE, y * Configs.BLOCK_SIZE, Configs.BLOCK_SIZE, Configs.BLOCK_SIZE, this);
@@ -85,6 +96,7 @@ public class MainPanel extends JPanel {
         if (pBlockStates.length != 15 || pBlockStates[0].length != 20){
             throw new IllegalArgumentException("Invalid Size of Block Texture");
         }
+        clearBlocks();
 
         for (int y = 0; y < 15; y++) {
             for (int x = 0; x < 20; x++) {
