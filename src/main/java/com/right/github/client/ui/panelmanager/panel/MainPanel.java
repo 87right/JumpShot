@@ -22,8 +22,6 @@ public class MainPanel extends JPanel {
     private final Graphics2D graEntities;
     private final Graphics2D graBlocks;
 
-    private final Graphics screen;
-
     public MainPanel(){
         super();
         this.background = new BufferedImage(Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
@@ -34,7 +32,6 @@ public class MainPanel extends JPanel {
         this.graEntities = (Graphics2D) entities.getGraphics();
         this.graBlocks = (Graphics2D) blocks.getGraphics();
 
-        this.screen = getGraphics();
     }
 
     public void paintComponent(Graphics g){
