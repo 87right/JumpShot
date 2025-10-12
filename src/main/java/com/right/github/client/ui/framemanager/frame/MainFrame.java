@@ -6,7 +6,7 @@ import main.java.com.right.github.shared.packet.ExitPacket;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class MainFrame extends JFrame implements KeyListener, MouseListener {
+public class MainFrame extends JFrame implements KeyListener, MouseListener, MouseMotionListener {
     private final ExitPacket exitPacket;
 
     private int flagAction = 0;
@@ -33,7 +33,7 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener {
         addMouseListener(this);
     }
 
-
+    // region KeyListener
     @Override
     protected void processWindowEvent(final WindowEvent e) {
         super.processWindowEvent(e);
@@ -104,6 +104,8 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener {
         }
         flagAction = flagAction | flagChanged;
     }
+    // endregion
+    // region MouseListener
     @Override
     public void mouseClicked(MouseEvent e) {
         if (!isInputConsumedByUI){
@@ -191,6 +193,21 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener {
         mouseY = e.getY();
         flagAction = flagAction | flagChanged;
     }
+    // endregion
+    // region MouseMotionListener
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (!isInputConsumedByUI){
+            return;
+        }
+    }
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        if (!isInputConsumedByUI){
+            return;
+        }
+    }
+    //endregion
 
     public int getFlagAction() {
         return flagAction;
