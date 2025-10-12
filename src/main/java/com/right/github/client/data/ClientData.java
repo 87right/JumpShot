@@ -2,8 +2,10 @@ package main.java.com.right.github.client.data;
 
 import main.java.com.right.github.client.ui.EnumUIModes;
 import main.java.com.right.github.core.DisplayObjectData;
+import main.java.com.right.github.core.IntegerObject;
 import main.java.com.right.github.core.SelectableItem;
 import main.java.com.right.github.core.TextureManager;
+import main.java.com.right.github.shared.packet.ClientModeSendDataPacket;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
 import java.awt.*;
@@ -33,6 +35,7 @@ public class ClientData{
     // endregion
     // region CHOOSING ITEM
     private SelectableItem[] selectableItems;
+    private IntegerObject responseAddress;
     // endregion
     // region CHOOSING PACKAGE
     // endregion
@@ -117,6 +120,12 @@ public class ClientData{
     }
     public void setSelectableItems(SelectableItem[] selectableItems) {
         this.selectableItems = selectableItems;
+    }
+    public IntegerObject getResponseAddress() {
+        return responseAddress;
+    }
+    public void setResponseAddress(IntegerObject responseAddress) {
+        this.responseAddress = responseAddress;
     }
     // endregion
     // region CHOOSING PACKAGE

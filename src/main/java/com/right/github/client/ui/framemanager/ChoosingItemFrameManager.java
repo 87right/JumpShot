@@ -4,6 +4,7 @@ import main.java.com.right.github.client.data.ClientData;
 import main.java.com.right.github.client.net.ClientNet;
 import main.java.com.right.github.client.ui.framemanager.frame.MainFrame;
 import main.java.com.right.github.core.Configs;
+import main.java.com.right.github.core.IntegerObject;
 
 public class ChoosingItemFrameManager extends AbstractFrameManager{
 
@@ -25,8 +26,9 @@ public class ChoosingItemFrameManager extends AbstractFrameManager{
         if (mainFrame.getUiInput() < 0 && (mainFrame.getUiInput() & 1) > 0){
             mainFrame.checkedUIInput();
             if (mainFrame.getMouseY() > topY && mainFrame.getMouseY() < topY + indent * clientData.getSelectableItems().length){
-                System.out.println("check");
-                clientNet.responseChoosingItem(clientData.getSelectableItems()[(mainFrame.getMouseY() - topY) / indent].getId());
+                IntegerObject response = clientData.getResponseAddress();
+                response.setValue(clientData.getSelectableItems()[(mainFrame.getMouseY() - topY) / indent].getId());
+                clientNet.response();
             }
         }
 

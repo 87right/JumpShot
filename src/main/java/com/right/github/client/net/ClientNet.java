@@ -1,6 +1,7 @@
 package main.java.com.right.github.client.net;
 
 import main.java.com.right.github.client.data.ClientData;
+import main.java.com.right.github.core.IntegerObject;
 import main.java.com.right.github.core.SelectableItem;
 import main.java.com.right.github.shared.packet.ClientModeRequestPacket;
 import main.java.com.right.github.shared.packet.*;
@@ -46,9 +47,11 @@ public class ClientNet{
                 clientData.requestUIMode(clientModeRequestPacket.getUiModes());
             } else if (currentPacket instanceof ClientModeSendDataPacket clientModeSendDataPacket) {
                 if (clientModeSendDataPacket instanceof ClientModeSendDataPacket.ChoosingItem(
-                        SelectableItem[] selectableItems
+                        SelectableItem[] selectableItems,
+                        IntegerObject responseAddress
                 )){
                     clientData.setSelectableItems(selectableItems);
+                    clientData.setResponseAddress(responseAddress);
                 }
             }
         }
@@ -63,7 +66,7 @@ public class ClientNet{
     public void keyInputChanged(int content, int mouseX, int mouseY){
         packetsClientToServer.add(new KeyInputsPacket(content, mouseX, mouseY));
     }
-    public void responseChoosingItem(int id){
-        packetsClientToServer.add(new ClientModeSendDataPacket.ChoosingItemResponse(id));
+    public void response(){
+        packetsClientToServer.add(new ClientModeSendDataPacket.Response());
     }
 }

@@ -2,6 +2,7 @@ package main.java.com.right.github.server;
 
 
 import main.java.com.right.github.client.ui.EnumUIModes;
+import main.java.com.right.github.core.IntegerObject;
 import main.java.com.right.github.core.SelectableItem;
 import main.java.com.right.github.shared.packet.*;
 import main.java.com.right.github.server.game.Game;
@@ -18,6 +19,7 @@ public class Server {
     private Game game;
 
     private int temp = 0;
+    private IntegerObject response = new IntegerObject(0);
 
     SelectableItem[] selectableItems = new SelectableItem[5];
 
@@ -53,7 +55,7 @@ public class Server {
 
         if (temp == 60){
             pPacketsToSend.add(new ClientModeRequestPacket(EnumUIModes.CHOOSING_ITEM_MODE));
-            pPacketsToSend.add(new ClientModeSendDataPacket.ChoosingItem(selectableItems));
+            pPacketsToSend.add(new ClientModeSendDataPacket.ChoosingItem(selectableItems, response));
         } else if (temp < 60) {
             temp ++;
         }
@@ -67,8 +69,9 @@ public class Server {
                 isRunning = false;
             } else if (currentPacket instanceof KeyInputsPacket pKeyInputsPacket) {
                 game.keyInputs(pKeyInputsPacket);
-            } else if (currentPacket instanceof ClientModeSendDataPacket.ChoosingItemResponse(int id)) {
-                System.out.println(id);
+            } else if (currentPacket instanceof ClientModeSendDataPacket.Response()) {
+                System.out.println("Received Response!");
+                System.out.println(response.getValue());
             }
         }
 
