@@ -20,8 +20,8 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
     public final int keyLeft = KeyEvent.VK_A;
     public final int keyJump = KeyEvent.VK_SPACE;
 
-    private int mouseX = 0;
-    private int mouseY = 0;
+    private Integer mouseX = 0;
+    private Integer mouseY = 0;
 
     public boolean isInputConsumedByUI = false;
     public String textingText = "";
@@ -206,6 +206,8 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
         if (!isInputConsumedByUI){
             return;
         }
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
     //endregion
 

@@ -1,6 +1,7 @@
 package main.java.com.right.github.client.net;
 
 import main.java.com.right.github.client.data.ClientData;
+import main.java.com.right.github.core.SelectableItem;
 import main.java.com.right.github.shared.packet.ClientModeRequestPacket;
 import main.java.com.right.github.shared.packet.*;
 
@@ -43,6 +44,12 @@ public class ClientNet{
                 }
             } else if (currentPacket instanceof ClientModeRequestPacket clientModeRequestPacket) {
                 clientData.requestUIMode(clientModeRequestPacket.getUiModes());
+            } else if (currentPacket instanceof ClientModeSendDataPacket clientModeSendDataPacket) {
+                if (clientModeSendDataPacket instanceof ClientModeSendDataPacket.ChoosingItem(
+                        SelectableItem[] selectableItems
+                )){
+                    clientData.setSelectableItems(selectableItems);
+                }
             }
         }
         if (exitPacket.getFlag()){

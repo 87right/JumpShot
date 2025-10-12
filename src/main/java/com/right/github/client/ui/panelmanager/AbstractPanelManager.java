@@ -1,6 +1,7 @@
 package main.java.com.right.github.client.ui.panelmanager;
 
 import main.java.com.right.github.client.data.ClientData;
+import main.java.com.right.github.client.ui.framemanager.frame.MainFrame;
 import main.java.com.right.github.client.ui.panelmanager.panel.MainPanel;
 
 abstract public class AbstractPanelManager {

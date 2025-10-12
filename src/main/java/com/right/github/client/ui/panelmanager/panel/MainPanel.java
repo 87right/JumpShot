@@ -151,4 +151,8 @@ public class MainPanel extends JPanel {
         graUI.setColor(Color.WHITE);
         graUI.fillRect(x + indentX, y + indentY, (int) ((width - 2 * indentX) * progress), height - 2 * indentY);
     }
+    public void drawText(int x, int y, String content, int size){
+        graUI.setFont(new Font("Arial", Font.BOLD, size));
+        graUI.drawString(content, x, y);
+    }
 }
