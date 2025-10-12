@@ -7,33 +7,63 @@ import main.java.com.right.github.world.level.block.state.BlockState;
 import java.util.ArrayList;
 
 public class ClientData{
-    // COMMON
+    // 各モードで使われるデータたち
+    // region COMMON
     private boolean isRunning;
     private EnumUIModes currentUIMode = EnumUIModes.LOADING_MODE;
     private EnumUIModes requestedUIMode = EnumUIModes.LOADING_MODE;
-
-    // STAGE
+    // endregion
+    // region STAGE
     private BlockState[][] blockStates = null;
     private ArrayList<DisplayObjectData> displayObjectData = new ArrayList<>();
     private boolean isBlockChanged = false;
-
-    //
+    // endregion
+    // region LOADING
+    // endregion
+    // region EMPTY
+    // endregion
+    // region CHOOSING ITEM
+    // endregion
+    // region CHOOSING PACKAGE
+    // endregion
+    // region INPUTTING TEXT
+    // endregion
+    // region SELECTING BLOCK POS
+    // endregion
+    // region SELECTING POS
+    // endregion
+    // region SETTING
+    // endregion
 
     public ClientData(){}
 
     public void start() {
         isRunning = true;
     }
-
     public void end() {
     }
 
+    // region COMMON
+    public boolean isRunning() {
+        return isRunning;
+    }
+    public void stop(){
+        isRunning = false;
+    }
     public EnumUIModes getCurrentUIMode() {
         return currentUIMode;
     }
     public EnumUIModes getRequestedUIMode() {
         return requestedUIMode;
     }
+    public void setCurrentUIMode(EnumUIModes currentUIMode) {
+        this.currentUIMode = currentUIMode;
+    }
+    public void requestUIMode(EnumUIModes requestedUIMode) {
+        this.requestedUIMode = requestedUIMode;
+    }
+    // endregion
+    // region STAGE
     public BlockState[][] getBlockStates() {
         return blockStates;
     }
@@ -42,12 +72,6 @@ public class ClientData{
     }
     public boolean isBlockChanged() {
         return isBlockChanged;
-    }
-    public void setCurrentUIMode(EnumUIModes currentUIMode) {
-        this.currentUIMode = currentUIMode;
-    }
-    public void requestUIMode(EnumUIModes requestedUIMode) {
-        this.requestedUIMode = requestedUIMode;
     }
     public void setBlockStates(BlockState[][] blockStates){
         this.blockStates = blockStates;
@@ -59,11 +83,21 @@ public class ClientData{
     public void addDisplayObjectData(DisplayObjectData displayObjectData){
         this.displayObjectData.add(displayObjectData);
     }
-    public void stop(){
-        isRunning = false;
-     }
-
-    public boolean isRunning() {
-        return isRunning;
-    }
+    // endregion
+    // region LOADING
+    // endregion
+    // region EMPTY
+    // endregion
+    // region CHOOSING ITEM
+    // endregion
+    // region CHOOSING PACKAGE
+    // endregion
+    // region INPUTTING TEXT
+    // endregion
+    // region SELECTING BLOCK POS
+    // endregion
+    // region SELECTING POS
+    // endregion
+    // region SETTING
+    // endregion
 }
