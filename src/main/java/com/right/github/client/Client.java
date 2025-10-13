@@ -23,7 +23,7 @@ public class Client {
         clientUI = new ClientUI(exitPacket);
     }
 
-    public void start(Queue<Packet> packetsClientToServer) {
+    public void start() {
         clientData.start();
         clientNet.start(clientData);
         clientUI.start(clientNet, clientData);

@@ -25,7 +25,7 @@ public class Main{
 
         Logs.Info("Created Server and Client.");
 
-        client.start(packetsClientToServer);
+        client.start();
         server.start(packetsServerToClient, EnumServerType.GAME);
 
         server.update(packetsClientToServer, packetsServerToClient);
