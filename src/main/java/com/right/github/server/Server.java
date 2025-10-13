@@ -2,6 +2,7 @@ package main.java.com.right.github.server;
 
 
 import main.java.com.right.github.client.ui.EnumUIModes;
+import main.java.com.right.github.core.Configs;
 import main.java.com.right.github.core.IntegerObject;
 import main.java.com.right.github.core.SelectableItem;
 import main.java.com.right.github.shared.packet.*;
@@ -21,7 +22,8 @@ public class Server {
     private Game game;
 
     private int temp = 0;
-    private IntegerObject response = new IntegerObject(0);
+    private final IntegerObject responseChoosingItem = new IntegerObject(-1);
+    private final IntegerObject responseSelectingBlockPos = new IntegerObject(-1);
 
     SelectableItem[] selectableItems = new SelectableItem[5];
 
@@ -59,7 +61,7 @@ public class Server {
 
         if (temp == 60){
             pPacketsToSend.add(new ClientModeRequestPacket(EnumUIModes.CHOOSING_ITEM_MODE));
-            pPacketsToSend.add(new ClientModeSendDataPacket.ChoosingItem(selectableItems, response));
+            pPacketsToSend.add(new ClientModeSendDataPacket.ChoosingItem(selectableItems, responseChoosingItem));
             temp = 61;
             System.out.println("check");
         } else if (temp < 60) {
@@ -76,8 +78,23 @@ public class Server {
             } else if (currentPacket instanceof KeyInputsPacket pKeyInputsPacket) {
                 game.keyInputs(pKeyInputsPacket);
             } else if (currentPacket instanceof ClientModeSendDataPacket.Response()) {
-                if (response.getValue() == 4){
-                    packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.STAGE_MODE));
+                if (responseChoosingItem.getValue() == 4){
+                    responseChoosingItem.setValue(-1);
+                    packetsServerToClient.add(new ClientModeSendDataPacket.SelectingBlockPos(responseSelectingBlockPos));
+                    packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.SELECTING_BLOCK_POS_MODE));
+                }
+                if (responseSelectingBlockPos.getValue() > 0){
+                    int value = responseSelectingBlockPos.getValue();
+                    responseSelectingBlockPos.setValue(-1);
+                    if ((value & 1) > 0){
+                        System.out.println("lmb");
+                    } else if ((value & 1 << 1) > 0) {
+                        System.out.println("mmb");
+                    } else if ((value & 1 << 2) > 0) {
+                        System.out.println("rmb");
+                    }
+                    value = value >> 6;
+                    System.out.println("x" + (value % Configs.STAGE_WIDTH) + " y:" + (value / Configs.STAGE_WIDTH));
                 }
             }
         }

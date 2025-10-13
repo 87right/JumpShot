@@ -118,7 +118,7 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
         if (!isInputConsumedByUI){
             return;
         }
-        uiInput = 0;
+        uiInput = flagChanged;
         // マウスのボタンがクリックされた
         switch ( e.getButton() ) {
             case MouseEvent.BUTTON1:
@@ -136,7 +136,6 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
         }
         mouseX = e.getX();
         mouseY = e.getY();
-        uiInput = uiInput | flagChanged;
 //        System.out.println("クリック座標:"+e.getPoint().getX() + ", " + e.getPoint().getY());
     }
     @Override

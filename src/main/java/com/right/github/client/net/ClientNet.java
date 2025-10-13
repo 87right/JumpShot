@@ -52,6 +52,10 @@ public class ClientNet{
                 )){
                     clientData.setSelectableItems(selectableItems);
                     clientData.setResponseAddress(responseAddress);
+                } else if (clientModeSendDataPacket instanceof ClientModeSendDataPacket.SelectingBlockPos(
+                        IntegerObject responseAddress
+                )) {
+                    clientData.setSelectingBlockPosInput(responseAddress);
                 }
             }
         }

@@ -23,6 +23,7 @@ public class ClientData{
     private int mouseY = 0;
 
     public final BufferedImage BACKGROUND_SELECT = TextureManager.getTexture("background/select.png");
+    public final BufferedImage BACKGROUND_TYPE_TEXT = TextureManager.getTexture("background/type_text.png");
     // endregion
     // region STAGE
     private BlockState[][] blockStates = null;
@@ -42,6 +43,7 @@ public class ClientData{
     // region INPUTTING TEXT
     // endregion
     // region SELECTING BLOCK POS
+    private IntegerObject selectingBlockPosInput;
     // endregion
     // region SELECTING POS
     // endregion
@@ -133,7 +135,13 @@ public class ClientData{
     // region INPUTTING TEXT
     // endregion
     // region SELECTING BLOCK POS
-    // endregion
+    public void setSelectingBlockPosInput(int selectingBlockPosInput) {
+        this.selectingBlockPosInput.setValue(selectingBlockPosInput);
+    }
+    public void setSelectingBlockPosInput(IntegerObject selectingBlockPosInput) {
+        this.selectingBlockPosInput = selectingBlockPosInput;
+    }
+// endregion
     // region SELECTING POS
     // endregion
     // region SETTING
