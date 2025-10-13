@@ -14,6 +14,13 @@ public class BlockPos {
         this.y = (int) pPos.getY().floatValue() / Configs.BLOCK_SIZE;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public BlockPos offset(int dx, int dy){
         return new BlockPos(x + dx, y + dy);
     }

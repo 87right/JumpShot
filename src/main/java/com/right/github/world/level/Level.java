@@ -2,7 +2,6 @@ package main.java.com.right.github.world.level;
 
 
 import main.java.com.right.github.core.BlockPos;
-import main.java.com.right.github.core.Pos;
 import main.java.com.right.github.shared.packet.KeyInputsPacket;
 import main.java.com.right.github.shared.packet.LevelPacket;
 import main.java.com.right.github.shared.packet.Packet;
@@ -16,9 +15,9 @@ import java.util.ArrayList;
 import java.util.Queue;
 
 public class Level {
-    private BlockState[][] blockStates = new BlockState[15][20];
+    private final BlockState[][] blockStates;
     private Player player;
-    private ArrayList<Entity> entities = new ArrayList<>();
+    private final ArrayList<Entity> entities = new ArrayList<>();
 
     public Level(Queue<Packet> toSendPacket, BlockState[][] pBlockStates){
         blockStates = pBlockStates;
@@ -74,5 +73,13 @@ public class Level {
     public void setBlockState(BlockPos pBlockPos, BlockState pBlockState) {
         if (pBlockPos.isOutOfStage()){return;}
         blockStates[pBlockPos.getY()][pBlockPos.getX()] = pBlockState;
+    }
+
+    public BlockState copyBlockStates(BlockPos blockPos) {
+        return blockStates[blockPos.getY()][blockPos.getX()].copy();
+    }
+
+    public BlockState[][] getBlockStates() {
+        return blockStates;
     }
 }
