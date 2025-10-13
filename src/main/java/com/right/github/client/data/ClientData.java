@@ -76,6 +76,9 @@ public class ClientData{
         return mouseY;
     }
 
+    public void setRunning(boolean running) {
+        isRunning = running;
+    }
     public void setMouseX(int mouseX) {
         this.mouseX = mouseX;
     }

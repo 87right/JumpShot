@@ -19,7 +19,7 @@ public class LoadingPanelManager extends AbstractPanelManager{
     @Override
     public void draw(MainPanel panel, ClientData clientData) {
         temp ++;
-        panel.drawProgress((int) (Configs.SCREEN_WIDTH * 0.25f), (int) (Configs.SCREEN_HEIGHT * 0.6f), (int) (Configs.SCREEN_WIDTH * 0.5f), 40, (int) (temp * 1.7f));
+//        panel.drawProgress((int) (Configs.SCREEN_WIDTH * 0.25f), (int) (Configs.SCREEN_HEIGHT * 0.6f), (int) (Configs.SCREEN_WIDTH * 0.5f), 40, (int) (temp * 1.7f));
     }
 
     @Override

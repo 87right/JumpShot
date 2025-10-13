@@ -23,8 +23,6 @@ public class Level {
     public Level(Queue<Packet> toSendPacket, BlockState[][] pBlockStates){
         blockStates = pBlockStates;
         toSendPacket.add(new LevelPacket.BlockStatesPacket.SendAllStatsPacket(blockStates, getTypes(), getStates()));
-        player = new Player(new Pos(40, 40), toSendPacket);
-        entities.add(player);
     }
 
     public void update(Queue<Packet> toSendPackets){
@@ -62,6 +60,10 @@ public class Level {
     }
 
     public void keyInputs(KeyInputsPacket pKeyInputsPacket) {
+        if (player == null) {
+            return;
+        }
+
         player.keyInputs(pKeyInputsPacket, this);
     }
 
