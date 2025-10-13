@@ -11,6 +11,7 @@ public class StagePanelManager extends AbstractPanelManager{
     private final BufferedImage BACKGROUND_TEST = TextureManager.getTexture("background/test.png");
     @Override
     public void enter(MainPanel panel, ClientData clientData) {
+        panel.clearAll();
         panel.drawBackground(BACKGROUND_TEST);
     }
 

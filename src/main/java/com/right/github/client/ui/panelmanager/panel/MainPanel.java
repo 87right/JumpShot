@@ -57,7 +57,7 @@ public class MainPanel extends JPanel {
         paintComponent(getGraphics());
     }
 
-    // 全部を透明にするやつら
+    // region 全部を透明にするやつら
     public void clearBackground(){
         graBackground.setComposite(AlphaComposite.Clear);
         graBackground.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);
@@ -83,7 +83,14 @@ public class MainPanel extends JPanel {
         graUI.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);
         graUI.setComposite(AlphaComposite.SrcOver);
     }
-
+    public void clearAll(){
+        clearBackground();
+        clearEntities();
+        clearBlocks();
+        clearParticles();
+        clearUI();
+    }
+    //endregion
     // 便利なAPI
     public void drawBackground(BufferedImage pBackground){
         graBackground.drawImage(pBackground, 0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT, this);

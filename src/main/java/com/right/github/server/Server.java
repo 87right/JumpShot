@@ -12,6 +12,8 @@ import java.util.Queue;
 
 public class Server {
     private ExitPacket exitPacket;
+    private Queue<Packet> packetsServerToClient;
+    private Queue<Packet> packetsClientToServer;
     private boolean isRunning;
 
     private EnumServerType serverType = EnumServerType.GAME;
@@ -24,10 +26,12 @@ public class Server {
     SelectableItem[] selectableItems = new SelectableItem[5];
 
 
-    public Server(Queue<Packet> pPacketsToSend){
+    public Server(Queue<Packet> packetsServerToClient, Queue<Packet> packetsClientToServer){
         isRunning = true;
         exitPacket = new ExitPacket();
-        this.game = new Game(pPacketsToSend);
+        this.packetsServerToClient =  packetsServerToClient;
+        this.packetsClientToServer = packetsClientToServer;
+        this.game = new Game(packetsServerToClient);
     }
 
     public void start(Queue<Packet> pPacketsToSend, EnumServerType pServerType) {
@@ -56,6 +60,8 @@ public class Server {
         if (temp == 60){
             pPacketsToSend.add(new ClientModeRequestPacket(EnumUIModes.CHOOSING_ITEM_MODE));
             pPacketsToSend.add(new ClientModeSendDataPacket.ChoosingItem(selectableItems, response));
+            temp = 61;
+            System.out.println("check");
         } else if (temp < 60) {
             temp ++;
         }
@@ -70,8 +76,9 @@ public class Server {
             } else if (currentPacket instanceof KeyInputsPacket pKeyInputsPacket) {
                 game.keyInputs(pKeyInputsPacket);
             } else if (currentPacket instanceof ClientModeSendDataPacket.Response()) {
-                System.out.println("Received Response!");
-                System.out.println(response.getValue());
+                if (response.getValue() == 4){
+                    packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.STAGE_MODE));
+                }
             }
         }
 

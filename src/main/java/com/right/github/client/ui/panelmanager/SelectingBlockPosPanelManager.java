@@ -6,7 +6,7 @@ import main.java.com.right.github.client.ui.panelmanager.panel.MainPanel;
 public class SelectingBlockPosPanelManager extends AbstractPanelManager{
     @Override
     public void enter(MainPanel panel, ClientData clientData) {
-
+        panel.clearAll();
     }
 
     @Override

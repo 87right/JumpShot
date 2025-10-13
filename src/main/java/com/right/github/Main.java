@@ -21,7 +21,7 @@ public class Main{
         Queue<Packet> packetsServerToClient = new ArrayDeque<>();
 
         Client client = new Client(packetsClientToServer, packetsServerToClient);
-        Server server = new Server(packetsServerToClient);
+        Server server = new Server(packetsServerToClient, packetsClientToServer);
 
         Logs.Info("Created Server and Client.");
 
