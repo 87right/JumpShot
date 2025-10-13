@@ -1,10 +1,7 @@
 package main.java.com.right.github.client.data;
 
 import main.java.com.right.github.client.ui.EnumUIModes;
-import main.java.com.right.github.core.DisplayObjectData;
-import main.java.com.right.github.core.IntegerObject;
-import main.java.com.right.github.core.SelectableItem;
-import main.java.com.right.github.core.TextureManager;
+import main.java.com.right.github.core.*;
 import main.java.com.right.github.shared.packet.ClientModeSendDataPacket;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
@@ -41,6 +38,7 @@ public class ClientData{
     // region CHOOSING PACKAGE
     // endregion
     // region INPUTTING TEXT
+    private StringObject inputText;
     // endregion
     // region SELECTING BLOCK POS
     private IntegerObject selectingBlockPosInput;
@@ -133,6 +131,16 @@ public class ClientData{
     // region CHOOSING PACKAGE
     // endregion
     // region INPUTTING TEXT
+    public StringObject getInputText() {
+        return inputText;
+    }
+    public void setInputText(String inputText) {
+        this.inputText.setContent(inputText);
+    }
+    public void setInputText(StringObject inputText) {
+        this.inputText = inputText;
+    }
+
     // endregion
     // region SELECTING BLOCK POS
     public void setSelectingBlockPosInput(int selectingBlockPosInput) {

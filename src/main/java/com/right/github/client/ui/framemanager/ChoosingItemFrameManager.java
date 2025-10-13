@@ -14,20 +14,20 @@ public class ChoosingItemFrameManager extends AbstractFrameManager{
     private final int topY = Configs.TITLE_HEIGHT;
 
     @Override
-    public void enter(MainFrame mainFrame, ClientNet clientNet, ClientData clientData) {
-        mainFrame.setInputConsumedByUI(true);
+    public void enter(MainFrame frame, ClientNet clientNet, ClientData clientData) {
+        frame.setInputConsumedByUI(true);
     }
 
     @Override
-    public void input(MainFrame mainFrame, ClientNet clientNet, ClientData clientData) {
-        clientData.setMouseX(mainFrame.getMouseX());
-        clientData.setMouseY(mainFrame.getMouseY());
+    public void input(MainFrame frame, ClientNet clientNet, ClientData clientData) {
+        clientData.setMouseX(frame.getMouseX());
+        clientData.setMouseY(frame.getMouseY());
 
-        if (mainFrame.getUiInput() < 0 && (mainFrame.getUiInput() & 1) > 0){
-            mainFrame.checkedUIInput();
-            if (mainFrame.getMouseY() > topY && mainFrame.getMouseY() < topY + indent * clientData.getSelectableItems().length){
+        if (frame.getUiInput() < 0 && (frame.getUiInput() & 1) > 0){
+            frame.checkedUIInput();
+            if (frame.getMouseY() > topY && frame.getMouseY() < topY + indent * clientData.getSelectableItems().length){
                 IntegerObject response = clientData.getResponseAddress();
-                response.setValue(clientData.getSelectableItems()[(mainFrame.getMouseY() - topY) / indent].getId());
+                response.setValue(clientData.getSelectableItems()[(frame.getMouseY() - topY) / indent].getId());
                 clientNet.response();
             }
         }
@@ -35,7 +35,7 @@ public class ChoosingItemFrameManager extends AbstractFrameManager{
     }
 
     @Override
-    public void exit(MainFrame mainFrame, ClientNet clientNet, ClientData clientData) {
-        mainFrame.setInputConsumedByUI(false);
+    public void exit(MainFrame frame, ClientNet clientNet, ClientData clientData) {
+        frame.setInputConsumedByUI(false);
     }
 }

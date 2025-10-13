@@ -3,6 +3,7 @@ package main.java.com.right.github.client.net;
 import main.java.com.right.github.client.data.ClientData;
 import main.java.com.right.github.core.IntegerObject;
 import main.java.com.right.github.core.SelectableItem;
+import main.java.com.right.github.core.StringObject;
 import main.java.com.right.github.shared.packet.ClientModeRequestPacket;
 import main.java.com.right.github.shared.packet.*;
 
@@ -56,6 +57,10 @@ public class ClientNet{
                         IntegerObject responseAddress
                 )) {
                     clientData.setSelectingBlockPosInput(responseAddress);
+                } else if (clientModeSendDataPacket instanceof ClientModeSendDataPacket.InputtingText(
+                        StringObject responseAddress
+                )) {
+                    clientData.setInputText(responseAddress);
                 }
             }
         }

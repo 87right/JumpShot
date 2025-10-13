@@ -6,17 +6,17 @@ import main.java.com.right.github.client.ui.framemanager.frame.MainFrame;
 
 public class ChoosingPackageFrameManager extends AbstractFrameManager{
     @Override
-    public void enter(MainFrame mainFrame, ClientNet clientNet, ClientData clientData) {
+    public void enter(MainFrame frame, ClientNet clientNet, ClientData clientData) {
 
     }
 
     @Override
-    public void input(MainFrame mainFrame, ClientNet clientNet, ClientData clientData) {
+    public void input(MainFrame frame, ClientNet clientNet, ClientData clientData) {
 
     }
 
     @Override
-    public void exit(MainFrame mainFrame, ClientNet clientNet, ClientData clientData) {
+    public void exit(MainFrame frame, ClientNet clientNet, ClientData clientData) {
 
     }
 }

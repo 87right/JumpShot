@@ -29,8 +29,8 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
     private int mouseX = 0;
     private int mouseY = 0;
 
-    public boolean isInputConsumedByUI = false;
-    public String textingText = "";
+    private boolean isInputConsumedByUI = false;
+    private String textingText = "";
     public MainFrame(ExitPacket pExitPacket){
         super();
         this.exitPacket = pExitPacket;
@@ -74,7 +74,7 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
         switch(e.getKeyChar()){
             case '\b':{
                 if (textingText.isEmpty()){
-                    break;
+                    return;
                 }
                 textingText = textingText.substring(0, textingText.length() - 1);
                 return;
@@ -85,7 +85,6 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
             }
         }
         textingText += e.getKeyChar();
-        System.out.println(textingText);
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -228,6 +227,9 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
     public void setInputConsumedByUI(boolean inputConsumedByUI) {
         isInputConsumedByUI = inputConsumedByUI;
     }
+    public boolean isInputConsumedByUI() {
+        return isInputConsumedByUI;
+    }
     public int getFlagAction() {
         return flagAction;
     }
@@ -238,6 +240,12 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
         return mouseY - getInsets().top;
     }
     public int getUiInput(){return uiInput;}
+    public String getTextingText() {
+        return textingText;
+    }
+    public void setTextingText(String textingText) {
+        this.textingText = textingText;
+    }
     public void checked(){
         flagAction = flagAction & ~flagChanged;
     }

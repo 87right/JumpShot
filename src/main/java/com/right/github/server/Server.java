@@ -5,10 +5,12 @@ import main.java.com.right.github.client.ui.EnumUIModes;
 import main.java.com.right.github.core.Configs;
 import main.java.com.right.github.core.IntegerObject;
 import main.java.com.right.github.core.SelectableItem;
+import main.java.com.right.github.core.StringObject;
 import main.java.com.right.github.shared.packet.*;
 import main.java.com.right.github.server.game.Game;
 import main.java.com.right.github.shared.Logs;
 
+import java.util.Objects;
 import java.util.Queue;
 
 public class Server {
@@ -24,6 +26,7 @@ public class Server {
     private int temp = 0;
     private final IntegerObject responseChoosingItem = new IntegerObject(-1);
     private final IntegerObject responseSelectingBlockPos = new IntegerObject(-1);
+    private final StringObject responseInputtingText = new StringObject("");
 
     SelectableItem[] selectableItems = new SelectableItem[5];
 
@@ -80,8 +83,8 @@ public class Server {
             } else if (currentPacket instanceof ClientModeSendDataPacket.Response()) {
                 if (responseChoosingItem.getValue() == 4){
                     responseChoosingItem.setValue(-1);
-                    packetsServerToClient.add(new ClientModeSendDataPacket.SelectingBlockPos(responseSelectingBlockPos));
-                    packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.SELECTING_BLOCK_POS_MODE));
+                    packetsServerToClient.add(new ClientModeSendDataPacket.InputtingText(responseInputtingText));
+                    packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.INPUTTING_TEXT_MODE));
                 }
                 if (responseSelectingBlockPos.getValue() > 0){
                     int value = responseSelectingBlockPos.getValue();
@@ -95,6 +98,10 @@ public class Server {
                     }
                     value = value >> 6;
                     System.out.println("x" + (value % Configs.STAGE_WIDTH) + " y:" + (value / Configs.STAGE_WIDTH));
+                }
+                if (! Objects.equals(responseInputtingText.getContent(), "")){
+                    System.out.println(responseInputtingText.getContent());
+                    responseInputtingText.setContent("");
                 }
             }
         }

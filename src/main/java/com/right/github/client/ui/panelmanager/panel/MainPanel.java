@@ -166,4 +166,8 @@ public class MainPanel extends JPanel {
         graUI.setFont(new Font("Arial", Font.BOLD, size));
         graUI.drawString(content, x, y + size);
     }
+    public void drawTextBaseLine(int x, int y, String content, int size) {
+        graUI.setFont(new Font("Arial", Font.BOLD, size));
+        graUI.drawString(content, x, y);
+    }
 }
