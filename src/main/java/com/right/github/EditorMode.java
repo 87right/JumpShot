@@ -32,18 +32,34 @@ public class EditorMode {
         final SelectableItem[] menuRMB = {
                 new SelectableItem("Edit Block State", 1),
                 new SelectableItem("Select Block Type", 2),
-                new SelectableItem("Back", 3),
-                new SelectableItem("Exit", 4),
+                new SelectableItem("Go Back", 3),
+                new SelectableItem("Save and Exit", 4),
         };
         final SelectableItem[] blocks = {
                 new SelectableItem("Air", 1),
                 new SelectableItem("Wall", 2),
                 new SelectableItem("Goal", 3),
         };
+        final SelectableItem[] createOrEdit = {
+                new SelectableItem("Create New Stage", 1),
+                new SelectableItem("Edit Existing Stage", 2),
+        };
+        final SelectableItem[] errorStageNotFound = {
+                new SelectableItem("Stage Not Found", -1),
+                new SelectableItem("Create New Stage", 1),
+                new SelectableItem("Go Back", 2),
+        };
+            final SelectableItem[] errorStageAlreadyExist = {
+                    new SelectableItem("Stage Already Exists", -1),
+                    new SelectableItem("Edit Stage", 1),
+                    new SelectableItem("Go Back", 2),
+            };
 
 
         BlockPos blockPos = new BlockPos(0, 0);
         BlockState blockState = new BlockState(1, 0);
+
+        String stageName = "";
 
         final Queue<Packet> packetsClientToServer = new ArrayDeque<>();
         final Queue<Packet> packetsServerToClient = new ArrayDeque<>();
@@ -65,13 +81,13 @@ public class EditorMode {
                 }
             }else {
                 switch(phase){
+                    // 初期段階
                     case 0:{
-                        // 初期段階
-                        phase = 1;
+                        phase = 6;
                         break;
                     }
+                    // ステージ選択
                     case 1:{
-                        // ステージ選択
                         if (Objects.equals(responseString.getContent(), "")){
                             packetsServerToClient.add(new ClientModeSendDataPacket.InputtingText(responseString));
                             packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.LOADING_MODE));
@@ -79,16 +95,42 @@ public class EditorMode {
                             isWaiting = true;
                             break;
                         }
+                        stageName = responseString.getContent();
+                        responseString.setContent("");
                         try{
                             world = new WorldEditorMode();
-                            world.loadLevel(packetsServerToClient, responseString.getContent());
-                        } catch (Exception _) {break;}
-                        responseString.setContent("");
+                            world.loadLevel(packetsServerToClient, stageName);
+                        } catch (Exception _) {
+                            phase = 2;
+                            break;
+                        }
                         phase = 3;
                         break;
                     }
+                    // 選択されたステージが見つかりません!
+                    case 2:{
+                        if (responseInteger.getValue() == -1){
+                            packetsServerToClient.add(new ClientModeSendDataPacket.ChoosingItem(errorStageNotFound, responseInteger));
+                            packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.CHOOSING_ITEM_MODE));
+                            break;
+                        }
+                        int value = responseInteger.getValue();
+                        responseInteger.setValue(-1);
+                        switch (value){
+                            case 1:{
+                                phase = 8;
+                                break;
+                            }
+                            case 2:{
+                                // 戻る
+                                phase = 6;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    // BlockPos選択
                     case 3:{
-                        // BlockPos選択
                         if (responseInteger.getValue() == -1){
                             packetsServerToClient.add(new ClientModeSendDataPacket.SelectingBlockPos(responseInteger));
                             packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.SELECTING_BLOCK_POS_MODE));
@@ -128,8 +170,8 @@ public class EditorMode {
                         }
                         break;
                     }
+                    // メニュー
                     case 4:{
-                        // メニュー
                         if (responseInteger.getValue() == -1){
                             packetsServerToClient.add(new ClientModeSendDataPacket.ChoosingItem(menuRMB, responseInteger));
                             packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.CHOOSING_ITEM_MODE));
@@ -154,7 +196,7 @@ public class EditorMode {
                             }
                             case 4:{
                                 // 終了
-                                phase = 1;
+                                phase = 6;
                                 responseString.setContent("");
                                 world.saveLevel();
                                 break;
@@ -162,8 +204,8 @@ public class EditorMode {
                         }
                         break;
                     }
+                    // Block選択
                     case 5:{
-                        // メニュー
                         if (responseInteger.getValue() == -1){
                             packetsServerToClient.add(new ClientModeSendDataPacket.ChoosingItem(blocks, responseInteger));
                             packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.CHOOSING_ITEM_MODE));
@@ -189,6 +231,94 @@ public class EditorMode {
                             }
                         }
                         phase = 3;
+                        break;
+                    }
+                    // 新規作成 or 編集
+                    case 6:{
+                        if (responseInteger.getValue() == -1){
+                            packetsServerToClient.add(new ClientModeSendDataPacket.ChoosingItem(createOrEdit, responseInteger));
+                            packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.CHOOSING_ITEM_MODE));
+                            break;
+                        }
+                        int value = responseInteger.getValue();
+                        responseInteger.setValue(-1);
+                        responseString.setContent("");
+                        switch (value){
+                            case 1:{
+                                // 新規作成
+                                phase = 7;
+                                break;
+                            }
+                            case 2:{
+                                // 編集
+                                phase = 1;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    // 新規作成のテキスト入力
+                    case 7:{
+                        if (Objects.equals(responseString.getContent(), "")){
+                            packetsServerToClient.add(new ClientModeSendDataPacket.InputtingText(responseString));
+                            packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.LOADING_MODE));
+                            packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.INPUTTING_TEXT_MODE));
+                            isWaiting = true;
+                            break;
+                        }
+                        stageName = responseString.getContent();
+                        responseString.setContent("");
+                        try{
+                            // こっちがエラー
+                            WorldEditorMode tempWorld = new WorldEditorMode();
+                            tempWorld.loadLevel(packetsServerToClient, stageName);
+                            phase = 9;
+                            break;
+                        } catch (Exception _) {
+                            // こっちが正常
+                            phase = 8;
+                            break;
+                        }
+                    }
+                    // 新規作成と編集へ移行
+                    case 8:{
+                        JSSFManager.create(stageName);
+                        try{
+                            world = new WorldEditorMode();
+                            world.loadLevel(packetsServerToClient, stageName);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                        phase = 3;
+                        break;
+                    }
+                    // そのステージは既に存在します
+                    case 9:{
+                        if (responseInteger.getValue() == -1){
+                            packetsServerToClient.add(new ClientModeSendDataPacket.ChoosingItem(errorStageAlreadyExist, responseInteger));
+                            packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.CHOOSING_ITEM_MODE));
+                            break;
+                        }
+                        int value = responseInteger.getValue();
+                        responseInteger.setValue(-1);
+                        switch (value){
+                            case 1:{
+                                // 編集
+                                try{
+                                    world = new WorldEditorMode();
+                                    world.loadLevel(packetsServerToClient, stageName);
+                                    phase = 3;
+                                    break;
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            case 2:{
+                                // 戻る
+                                phase = 6;
+                                break;
+                            }
+                        }
                         break;
                     }
                     default:{
