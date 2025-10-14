@@ -28,12 +28,13 @@ public class ChoosingItemPanelManager extends AbstractPanelManager {
     @Override
     public void draw(MainPanel panel, ClientData clientData) {
         boolean someIsHovered = false;
+        panel.clearUI();
+        panel.clearParticles();
         for (int i = 0; i < clientData.getSelectableItems().length; i++) {
             int currentY = indent * i + topY;
             SelectableItem selectableItem = clientData.getSelectableItems()[i];
             panel.drawText(40, currentY, "- " + selectableItem.getName(), fontSize);
             if (clientData.getMouseY() >= currentY - margin && clientData.getMouseY() <= currentY + indent - margin){
-                panel.clearParticles();
                 panel.fillRect(30, currentY + margin, Configs.SCREEN_WIDTH, fontSize, 0, 0, 0, 128);
                 someIsHovered = true;
             }

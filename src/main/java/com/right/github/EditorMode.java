@@ -6,6 +6,7 @@ import main.java.com.right.github.core.*;
 import main.java.com.right.github.shared.Logs;
 import main.java.com.right.github.shared.packet.ClientModeRequestPacket;
 import main.java.com.right.github.shared.packet.ClientModeSendDataPacket;
+import main.java.com.right.github.shared.packet.LevelPacket;
 import main.java.com.right.github.shared.packet.Packet;
 import main.java.com.right.github.world.World;
 import main.java.com.right.github.world.level.block.state.BlockState;
@@ -30,12 +31,18 @@ public class EditorMode {
         final SelectableItem[] menuRMB = {
                 new SelectableItem("Edit Block State", 1),
                 new SelectableItem("Select Block Type", 2),
-                new SelectableItem("Exit", 3),
+                new SelectableItem("Back", 3),
+                new SelectableItem("Exit", 4),
+        };
+        final SelectableItem[] blocks = {
+                new SelectableItem("Air", 1),
+                new SelectableItem("Wall", 2),
+                new SelectableItem("Goal", 3),
         };
 
 
         BlockPos blockPos = new BlockPos(0, 0);
-        BlockState blockState = new BlockState(0, 0);
+        BlockState blockState = new BlockState(1, 0);
 
         final Queue<Packet> packetsClientToServer = new ArrayDeque<>();
         final Queue<Packet> packetsServerToClient = new ArrayDeque<>();
@@ -102,7 +109,10 @@ public class EditorMode {
                         blockPos.setY(value / Configs.STAGE_WIDTH);
                         switch (mb){
                             case 1:{
+                                // 編集
+                                System.out.println(blockState.getType());
                                 world.setBlockState(blockPos, blockState);
+                                packetsServerToClient.add(new LevelPacket.BlockStatesPacket.SendAllStatsPacket(world.getBlockStates()));
                                 break;
                             }
                             case 2:{
@@ -132,10 +142,15 @@ public class EditorMode {
                             }
                             case 2:{
                                 // Blockの選択
-                                System.out.println("Coming Soon...");
+                                phase = 5;
                                 break;
                             }
                             case 3:{
+                                // Blockの選択
+                                phase = 3;
+                                break;
+                            }
+                            case 4:{
                                 // 終了
                                 phase = 1;
                                 responseString.setContent("");
@@ -143,6 +158,35 @@ public class EditorMode {
                                 break;
                             }
                         }
+                        break;
+                    }
+                    case 5:{
+                        // メニュー
+                        if (responseInteger.getValue() == -1){
+                            packetsServerToClient.add(new ClientModeSendDataPacket.ChoosingItem(blocks, responseInteger));
+                            packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.CHOOSING_ITEM_MODE));
+                            break;
+                        }
+                        int value = responseInteger.getValue();
+                        responseInteger.setValue(-1);
+                        switch (value){
+                            case 1:{
+                                // 空気
+                                blockState.setType(0);
+                                break;
+                            }
+                            case 2:{
+                                // 壁
+                                blockState.setType(1);
+                                break;
+                            }
+                            case 3:{
+                                // ゴール
+                                blockState.setType(2);
+                                break;
+                            }
+                        }
+                        phase = 3;
                         break;
                     }
                     default:{
@@ -176,13 +220,17 @@ public class EditorMode {
         }
 
         private void setBlockState(BlockPos pBlockPos, BlockState pBlockState){
-            level.setBlockState(pBlockPos, pBlockState);
+            level.setBlockState(pBlockPos, pBlockState.copy());
         }
         private BlockState copyBlockState(BlockPos blockPos){
             return level.copyBlockStates(blockPos);
         }
         private void saveLevel(){
             JSSFManager.write(name, level.getBlockStates());
+        }
+
+        public BlockState[][] getBlockStates() {
+            return level.getBlockStates();
         }
     }
 }

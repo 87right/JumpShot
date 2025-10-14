@@ -21,7 +21,7 @@ public class Level {
 
     public Level(Queue<Packet> toSendPacket, BlockState[][] pBlockStates){
         blockStates = pBlockStates;
-        toSendPacket.add(new LevelPacket.BlockStatesPacket.SendAllStatsPacket(blockStates, getTypes(), getStates()));
+        toSendPacket.add(new LevelPacket.BlockStatesPacket.SendAllStatsPacket(blockStates));
     }
 
     public void update(Queue<Packet> toSendPackets){
@@ -76,6 +76,9 @@ public class Level {
     }
 
     public BlockState copyBlockStates(BlockPos blockPos) {
+        if (blockPos.isOutOfStage()){
+            return new BlockState(0, 0);
+        }
         return blockStates[blockPos.getY()][blockPos.getX()].copy();
     }
 
