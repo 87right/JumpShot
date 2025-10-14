@@ -9,6 +9,7 @@ import main.java.com.right.github.shared.packet.ClientModeSendDataPacket;
 import main.java.com.right.github.shared.packet.LevelPacket;
 import main.java.com.right.github.shared.packet.Packet;
 import main.java.com.right.github.world.World;
+import main.java.com.right.github.world.level.Level;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
 import java.util.ArrayDeque;
@@ -79,6 +80,7 @@ public class EditorMode {
                             break;
                         }
                         try{
+                            world = new WorldEditorMode();
                             world.loadLevel(packetsServerToClient, responseString.getContent());
                         } catch (Exception _) {break;}
                         responseString.setContent("");
@@ -215,7 +217,7 @@ public class EditorMode {
 
         @Override
         public void loadLevel(Queue<Packet> toSendPacket, String pName) {
-            super.loadLevel(toSendPacket, pName);
+            level = new Level(toSendPacket, JSSFManager.readWithFullPath(pName));
             name = pName;
         }
 
@@ -227,6 +229,7 @@ public class EditorMode {
         }
         private void saveLevel(){
             JSSFManager.write(name, level.getBlockStates());
+            level = null;
         }
 
         public BlockState[][] getBlockStates() {

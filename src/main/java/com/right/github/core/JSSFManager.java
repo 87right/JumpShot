@@ -34,6 +34,27 @@ public class JSSFManager {
         return resultBlockState;
     }
 
+    public static BlockState[][] readWithFullPath(String pName){
+        BlockState[][] resultBlockState = new BlockState[15][20];
+
+        try(FileInputStream is = new FileInputStream(FULL_STAGE_FILE_DIR + pName + ".jssf");
+            BufferedInputStream bis = new BufferedInputStream(Objects.requireNonNull(is));
+            DataInputStream dis = new DataInputStream(bis)){
+
+            for (int y = 0; y < 15; y++) {
+                for (int x = 0; x < 20; x++) {
+                    int type = dis.readInt();
+                    long state = dis.readLong();
+                    resultBlockState[y][x] = new BlockState(type, state);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return resultBlockState;
+    }
+
     public static void write(String pName, BlockState[][] pBlockStates){
         try(FileOutputStream fos = new FileOutputStream(FULL_STAGE_FILE_DIR + pName + ".jssf");
             BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -42,8 +63,8 @@ public class JSSFManager {
             Logs.Info(pName + ".jssf へ保存中");
             for (BlockState[] blockStatesY : pBlockStates){
                 for (BlockState blockState : blockStatesY){
-                    int type = blockState.getType();;
-                    long state = blockState.getState();;
+                    int type = blockState.getType();
+                    long state = blockState.getState();
 
                     dos.writeInt(type);
                     dos.writeLong(state);
