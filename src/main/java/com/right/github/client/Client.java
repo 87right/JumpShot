@@ -31,6 +31,10 @@ public class Client {
     public void update(){
         clientNet.update();
         clientUI.update();
+
+        if (exitPacket.getFlag()){
+            clientData.setRunning(false);
+        }
     }
     public void cleanUP(){
         clientNet.end();

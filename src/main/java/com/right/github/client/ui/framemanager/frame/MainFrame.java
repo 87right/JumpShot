@@ -31,6 +31,7 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
 
     private boolean isInputConsumedByUI = false;
     private String textingText = "";
+    private boolean enter = false;
     public MainFrame(ExitPacket pExitPacket){
         super();
         this.exitPacket = pExitPacket;
@@ -80,7 +81,7 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
                 return;
             }
             case '\n', '\r':{
-                isInputConsumedByUI = false;
+                enter = true;
                 return;
             }
         }
@@ -251,5 +252,13 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
     }
     public void checkedUIInput() {
         uiInput = uiInput & ~flagChanged;
+    }
+
+    public boolean enter() {
+        if (enter){
+            enter = false;
+            return true;
+        }
+        return false;
     }
 }

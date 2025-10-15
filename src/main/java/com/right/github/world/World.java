@@ -24,5 +24,4 @@ public class World {
     public void loadLevel(Queue<Packet> toSendPacket, String pName){
         level = new Level(toSendPacket, JSSFManager.read(pName));
     }
-    public void saveLevel(Queue<Packet> toSendPacket){}
 }

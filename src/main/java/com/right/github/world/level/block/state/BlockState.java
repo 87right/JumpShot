@@ -24,4 +24,6 @@ public class BlockState {
     public long getState() {
         return state;
     }
+
+    public BlockState copy(){return new BlockState(type, state);}
 }

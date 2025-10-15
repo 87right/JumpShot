@@ -18,9 +18,8 @@ public class InputtingTextFrameManager extends AbstractFrameManager{
         }
         clientData.setInputText(frame.getTextingText());
 
-        if (!frame.isInputConsumedByUI()){
+        if (frame.enter()){
             clientNet.response();
-            frame.setTextingText("");
         }
     }
 
