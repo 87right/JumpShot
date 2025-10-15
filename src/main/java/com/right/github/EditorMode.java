@@ -33,7 +33,7 @@ public class EditorMode {
                 new SelectableItem("Edit Block State", 1),
                 new SelectableItem("Select Block Type", 2),
                 new SelectableItem("Go Back", 3),
-                new SelectableItem("Save and Exit", 4),
+                new SelectableItem("Exit", 4),
         };
         final SelectableItem[] blocks = {
                 new SelectableItem("Air", 1),
@@ -49,11 +49,16 @@ public class EditorMode {
                 new SelectableItem("Create New Stage", 1),
                 new SelectableItem("Go Back", 2),
         };
-            final SelectableItem[] errorStageAlreadyExist = {
-                    new SelectableItem("Stage Already Exists", -1),
-                    new SelectableItem("Edit Stage", 1),
-                    new SelectableItem("Go Back", 2),
-            };
+        final SelectableItem[] errorStageAlreadyExist = {
+                new SelectableItem("Stage Already Exists", -1),
+                new SelectableItem("Edit Stage", 1),
+                new SelectableItem("Go Back", 2),
+        };
+        final SelectableItem[] saveOrNot = {
+                new SelectableItem("Save Stage?", -1),
+                new SelectableItem("Yes", 1),
+                new SelectableItem("No", 2),
+        };
 
 
         BlockPos blockPos = new BlockPos(0, 0);
@@ -196,9 +201,7 @@ public class EditorMode {
                             }
                             case 4:{
                                 // 終了
-                                phase = 6;
-                                responseString.setContent("");
-                                world.saveLevel();
+                                phase = 10;
                                 break;
                             }
                         }
@@ -321,13 +324,36 @@ public class EditorMode {
                         }
                         break;
                     }
+                    // 保存しますか
+                    case 10:{
+                        if (responseInteger.getValue() == -1){
+                            packetsServerToClient.add(new ClientModeSendDataPacket.ChoosingItem(saveOrNot, responseInteger));
+                            packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.CHOOSING_ITEM_MODE));
+                            break;
+                        }
+                        int value = responseInteger.getValue();
+                        responseInteger.setValue(-1);
+                        switch (value){
+                            case 1:{
+                                phase = 6;
+                                responseString.setContent("");
+                                world.saveLevel();
+                                break;
+                            }
+                            case 2:{
+                                phase = 6;
+                                responseString.setContent("");
+                                break;
+                            }
+                        }
+                        break;
+                    }
                     default:{
                         Logs.Warn("Unexpected Status.");
                         isFine = false;
                     }
                 }
             }
-
             try {
                 Thread.sleep(33);
             } catch (InterruptedException e) {
