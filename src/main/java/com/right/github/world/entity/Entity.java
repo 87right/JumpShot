@@ -17,6 +17,8 @@ public class Entity {
 
     private boolean hasGravity = true;
 
+    private static final float EPSILON = 0.001f;
+
 
     public void setState(Pos pPos, Vec2D pVelocity, Vec2D pAcceleration, int width, int height){
         displayObjectData = new DisplayObjectData(pPos.getX(), pPos.getY(),  width, height);
@@ -81,6 +83,8 @@ public class Entity {
     }
 
     public boolean onGround(Level pLevel){
-        return pLevel.getBlock(new BlockPos(pos.move(0.0f, Configs.PLAYER_HEIGHT + 0.01f))).hasCollision();
+        return pLevel.getBlock(new BlockPos(pos.move(Configs.PLAYER_WIDTH - EPSILON, Configs.PLAYER_HEIGHT + 0.01f))).hasCollision()|
+                pLevel.getBlock(new BlockPos(pos.move((float) Configs.PLAYER_WIDTH / 2, Configs.PLAYER_HEIGHT + 0.01f))).hasCollision()|
+                pLevel.getBlock(new BlockPos(pos.move(EPSILON, Configs.PLAYER_HEIGHT + 0.01f))).hasCollision();
     }
 }

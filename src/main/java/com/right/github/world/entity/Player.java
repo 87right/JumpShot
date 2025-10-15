@@ -75,7 +75,7 @@ public class Player extends Entity {
 
             boolean onGround = onGround(pLevel);
             if ((keyInput & 4)  > 0 && onGround) {
-                velocity.setY(-6.0f);
+                velocity.setY(-6.5f);
             }
 
             // TODO: 描画と物理の分離
@@ -139,6 +139,11 @@ public class Player extends Entity {
             velocity.setY(-10.0f);
         }else if (velocity.getY() > 10.0f){
             velocity.setY(10.0f);
+        }
+
+        if ((keyInput & (1 << 3)) > 0){
+            keyInput = keyInput & ~(1 << 3);
+            pLevel.createBullet("blue", getPos());
         }
 
         getDisplayObjectData().setX(pos.getX());

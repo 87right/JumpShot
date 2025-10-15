@@ -32,6 +32,7 @@ public class EditorMode {
         final SelectableItem[] menuRMB = {
                 new SelectableItem("Edit Block State", 1),
                 new SelectableItem("Select Block Type", 2),
+                new SelectableItem("Ruler", 5),
                 new SelectableItem("Go Back", 3),
                 new SelectableItem("Exit", 4),
         };
@@ -204,6 +205,11 @@ public class EditorMode {
                                 phase = 10;
                                 break;
                             }
+                            case 5:{
+                                // 定規
+                                phase = 11;
+                                break;
+                            }
                         }
                         break;
                     }
@@ -347,6 +353,10 @@ public class EditorMode {
                             }
                         }
                         break;
+                    }
+                    // 定規
+                    case 11:{
+
                     }
                     default:{
                         Logs.Warn("Unexpected Status.");

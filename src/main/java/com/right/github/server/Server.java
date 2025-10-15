@@ -23,14 +23,6 @@ public class Server {
 
     private Game game;
 
-    private int temp = 0;
-    private final IntegerObject responseChoosingItem = new IntegerObject(-1);
-    private final IntegerObject responseSelectingBlockPos = new IntegerObject(-1);
-    private final StringObject responseInputtingText = new StringObject("");
-
-    SelectableItem[] selectableItems = new SelectableItem[5];
-
-
     public Server(Queue<Packet> packetsServerToClient, Queue<Packet> packetsClientToServer){
         isRunning = true;
         exitPacket = new ExitPacket();
@@ -42,12 +34,7 @@ public class Server {
     public void start(Queue<Packet> pPacketsToSend, EnumServerType pServerType) {
         serverType = pServerType;
         game.start(pPacketsToSend);
-
-        selectableItems[0] = new SelectableItem("I", 1);
-        selectableItems[1] = new SelectableItem("AM", 2);
-        selectableItems[2] = new SelectableItem("AN", 3);
-        selectableItems[3] = new SelectableItem("APPLE", 4);
-        selectableItems[4] = new SelectableItem("WOOOW", 5);
+        pPacketsToSend.add(new ClientModeRequestPacket(EnumUIModes.STAGE_MODE));
     }
     public void update(Queue<Packet> pReceivedPackets, Queue<Packet> pPacketsToSend){
         checkPackets(pReceivedPackets);
@@ -61,15 +48,6 @@ public class Server {
             isRunning = false;
             pPacketsToSend.add(exitPacket);
         }
-
-        if (temp == 60){
-            pPacketsToSend.add(new ClientModeRequestPacket(EnumUIModes.CHOOSING_ITEM_MODE));
-            pPacketsToSend.add(new ClientModeSendDataPacket.ChoosingItem(selectableItems, responseChoosingItem));
-            temp = 61;
-            System.out.println("check");
-        } else if (temp < 60) {
-            temp ++;
-        }
     }
 
     private void checkPackets(Queue<Packet> pPackets){
@@ -80,29 +58,6 @@ public class Server {
                 isRunning = false;
             } else if (currentPacket instanceof KeyInputsPacket pKeyInputsPacket) {
                 game.keyInputs(pKeyInputsPacket);
-            } else if (currentPacket instanceof ClientModeSendDataPacket.Response()) {
-                if (responseChoosingItem.getValue() == 4){
-                    responseChoosingItem.setValue(-1);
-                    packetsServerToClient.add(new ClientModeSendDataPacket.InputtingText(responseInputtingText));
-                    packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.INPUTTING_TEXT_MODE));
-                }
-                if (responseSelectingBlockPos.getValue() > 0){
-                    int value = responseSelectingBlockPos.getValue();
-                    responseSelectingBlockPos.setValue(-1);
-                    if ((value & 1) > 0){
-                        System.out.println("lmb");
-                    } else if ((value & 1 << 1) > 0) {
-                        System.out.println("mmb");
-                    } else if ((value & 1 << 2) > 0) {
-                        System.out.println("rmb");
-                    }
-                    value = value >> 6;
-                    System.out.println("x" + (value % Configs.STAGE_WIDTH) + " y:" + (value / Configs.STAGE_WIDTH));
-                }
-                if (! Objects.equals(responseInputtingText.getContent(), "")){
-                    System.out.println(responseInputtingText.getContent());
-                    responseInputtingText.setContent("");
-                }
             }
         }
 

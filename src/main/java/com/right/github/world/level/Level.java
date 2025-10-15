@@ -2,9 +2,12 @@ package main.java.com.right.github.world.level;
 
 
 import main.java.com.right.github.core.BlockPos;
+import main.java.com.right.github.core.Pos;
+import main.java.com.right.github.core.Vec2D;
 import main.java.com.right.github.shared.packet.KeyInputsPacket;
 import main.java.com.right.github.shared.packet.LevelPacket;
 import main.java.com.right.github.shared.packet.Packet;
+import main.java.com.right.github.world.entity.Bullet;
 import main.java.com.right.github.world.entity.Entity;
 import main.java.com.right.github.world.entity.Player;
 import main.java.com.right.github.world.level.block.Block;
@@ -68,11 +71,23 @@ public class Level {
 
     public void summonEntity(Entity pEntity){
         entities.add(pEntity);
+        if (pEntity instanceof Player player){
+            this.player = player;
+        }
     }
 
     public void setBlockState(BlockPos pBlockPos, BlockState pBlockState) {
         if (pBlockPos.isOutOfStage()){return;}
         blockStates[pBlockPos.getY()][pBlockPos.getX()] = pBlockState;
+    }
+
+    public void createBullet(String color, Pos pos){
+        for (Entity entity : entities){
+            if (entity instanceof Bullet bullet){
+                bullet.create(pos, new Vec2D(0, -10));
+                return;
+            }
+        }
     }
 
     public BlockState copyBlockStates(BlockPos blockPos) {
