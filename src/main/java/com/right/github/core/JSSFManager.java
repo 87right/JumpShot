@@ -71,7 +71,7 @@ public class JSSFManager {
         return resultBlockState;
     }
 
-    public static void write(String pName, BlockState[][] pBlockStates){
+    public static void write(String pName, BlockState[][] pBlockStates, float x, float y){
         try(FileOutputStream fos = new FileOutputStream(FULL_STAGE_FILE_DIR + pName + ".jssf");
             BufferedOutputStream bos = new BufferedOutputStream(fos);
             DataOutputStream dos = new DataOutputStream(bos)){
@@ -90,8 +90,8 @@ public class JSSFManager {
             // とりあえずPlayer(予定)の値をentity欄に書く
             // TODO: 実践的な機構を書く
             dos.writeInt(1);
-            dos.writeFloat(80.0f);
-            dos.writeFloat(80.0f);
+            dos.writeFloat(x);
+            dos.writeFloat(y);
             dos.writeLong(0L);
             Logs.Successful(pName + ".jssf への保存が完了しました");
 

@@ -37,6 +37,7 @@ public class EditorMode {
         final SelectableItem[] menuRMB = {
                 new SelectableItem("Edit Block State", 1),
                 new SelectableItem("Select Block Type", 2),
+                new SelectableItem("Set Player Spawn Location", 6),
                 new SelectableItem("Ruler", 5),
                 new SelectableItem("Go Back", 3),
                 new SelectableItem("Exit", 4),
@@ -215,6 +216,11 @@ public class EditorMode {
                                 phase = 11;
                                 break;
                             }
+                            case 6:{
+                                // プレイヤースポーン座標設定
+                                phase = 12;
+                                break;
+                            }
                         }
                         break;
                     }
@@ -379,6 +385,22 @@ public class EditorMode {
                         phase = 3;
                         break;
                     }
+                    // プレイヤースポーン座標設定
+                    case 12:{
+                        if (responseInteger.getValue() == -1){
+                            packetsServerToClient.add(new ClientModeSendDataPacket.SelectingBlockPos(responseInteger));
+                            packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.SELECTING_BLOCK_POS_MODE));
+                            break;
+                        }
+                        int value = responseInteger.getValue();
+                        responseInteger.setValue(-1);
+                        value = value >> 6;
+                        blockPos.setX(value % Configs.STAGE_WIDTH);
+                        blockPos.setY(value / Configs.STAGE_WIDTH);
+                        world.setPlayerSpawnPos(blockPos);
+                        phase = 3;
+                        break;
+                    }
                     default:{
                         Logs.Warn("Unexpected Status.");
                         isFine = false;
@@ -399,6 +421,11 @@ public class EditorMode {
 
     private static class WorldEditorMode extends World {
         String name = "";
+        float playerSpawnPosX;
+        float playerSpawnPosY;
+
+        static final float localCentreDeltaX = (float) (Configs.BLOCK_SIZE - Configs.PLAYER_WIDTH) / 2;
+        static final float localCentreDeltaY = (float) (Configs.BLOCK_SIZE - Configs.PLAYER_HEIGHT);
 
         private WorldEditorMode(){}
 
@@ -415,12 +442,16 @@ public class EditorMode {
             return level.copyBlockStates(blockPos);
         }
         private void saveLevel(){
-            JSSFManager.write(name, level.getBlockStates());
+            JSSFManager.write(name, level.getBlockStates(), playerSpawnPosX, playerSpawnPosY);
             level = null;
         }
 
-        public BlockState[][] getBlockStates() {
+        private BlockState[][] getBlockStates() {
             return level.getBlockStates();
+        }
+        private void setPlayerSpawnPos(BlockPos blockPos){
+            playerSpawnPosX = blockPos.getTopLeft().getX() + localCentreDeltaX;
+            playerSpawnPosY = blockPos.getTopLeft().getY() + localCentreDeltaY;
         }
     }
 }
