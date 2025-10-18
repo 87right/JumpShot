@@ -2,10 +2,13 @@ package main.java.com.right.github.core;
 
 
 import main.java.com.right.github.shared.Logs;
+import main.java.com.right.github.world.entity.Entity;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
 import java.io.*;
+import java.util.ArrayDeque;
 import java.util.Objects;
+import java.util.Queue;
 
 public class JSSFManager {
     private static final String STAGE_FILE_DIR = "assets/jumpshot/stages/";
@@ -13,8 +16,9 @@ public class JSSFManager {
 
     private JSSFManager(){}
 
-    public static BlockState[][] read(String pName){
-        BlockState[][] resultBlockState = new BlockState[15][20];
+    public static RawStageData read(String pName){
+        BlockState[][] blockStates = new BlockState[15][20];
+        Queue<Entity.RawEntityData> rawEntityData = new ArrayDeque<>();
 
         try(InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(STAGE_FILE_DIR + pName + ".jssf");
             BufferedInputStream bis = new BufferedInputStream(Objects.requireNonNull(is));
@@ -24,14 +28,26 @@ public class JSSFManager {
                 for (int x = 0; x < 20; x++) {
                     int type = dis.readInt();
                     long state = dis.readLong();
-                    resultBlockState[y][x] = new BlockState(type, state);
+                    blockStates[y][x] = new BlockState(type, state);
+                }
+            }
+
+            while (true) {
+                try {
+                    int type = dis.readInt();
+                    float posX = dis.readFloat();
+                    float posY = dis.readFloat();
+                    long state = dis.readLong();
+                    rawEntityData.add(new Entity.RawEntityData(type, posX, posY, state));
+                } catch (Exception e) {
+                    break;
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return resultBlockState;
+        return new RawStageData(blockStates, rawEntityData);
     }
 
     public static BlockState[][] readWithFullPath(String pName){
@@ -70,6 +86,13 @@ public class JSSFManager {
                     dos.writeLong(state);
                 }
             }
+
+            // とりあえずPlayer(予定)の値をentity欄に書く
+            // TODO: 実践的な機構を書く
+            dos.writeInt(1);
+            dos.writeFloat(80.0f);
+            dos.writeFloat(80.0f);
+            dos.writeLong(0L);
             Logs.Successful(pName + ".jssf への保存が完了しました");
 
         } catch (Exception e) {
@@ -96,5 +119,10 @@ public class JSSFManager {
             throw new RuntimeException(e);
         }
     }
+
+    public static record RawStageData(
+            BlockState[][] blockStates,
+            Queue<Entity.RawEntityData> rawEntityData
+    ){};
 
 }

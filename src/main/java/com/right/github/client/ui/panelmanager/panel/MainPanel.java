@@ -6,9 +6,13 @@ import main.java.com.right.github.core.DisplayObjectData;
 import main.java.com.right.github.world.level.block.Blocks;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class MainPanel extends JPanel {
@@ -25,6 +29,8 @@ public class MainPanel extends JPanel {
     private final Graphics2D graBlocks;
     private final Graphics2D graParticles;
     private final Graphics2D graUI;
+
+    private BufferedImage image;
 
     public MainPanel(){
         super();
@@ -52,6 +58,7 @@ public class MainPanel extends JPanel {
         screen.drawImage(ui, 0, 0, this);
 
         g.drawImage(image, 0, 0, this);
+        this.image = image;
     }
     public void rewrite(){
         paintComponent(getGraphics());
@@ -169,5 +176,9 @@ public class MainPanel extends JPanel {
     public void drawTextBaseLine(int x, int y, String content, int size) {
         graUI.setFont(new Font("Arial", Font.BOLD, size));
         graUI.drawString(content, x, y);
+    }
+
+    public void ss() throws IOException {
+        ImageIO.write(image, "png", new File("src/out/temp.png"));
     }
 }

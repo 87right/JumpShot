@@ -1,6 +1,7 @@
 package main.java.com.right.github.client.net;
 
 import main.java.com.right.github.client.data.ClientData;
+import main.java.com.right.github.core.FloatObject;
 import main.java.com.right.github.core.IntegerObject;
 import main.java.com.right.github.core.SelectableItem;
 import main.java.com.right.github.core.StringObject;
@@ -61,6 +62,12 @@ public class ClientNet{
                         StringObject responseAddress
                 )) {
                     clientData.setInputText(responseAddress);
+                }else if (clientModeSendDataPacket instanceof ClientModeSendDataPacket.SelectingPos(
+                        FloatObject x,
+                        FloatObject y
+                )) {
+                    clientData.setSelectingPosXInput(x);
+                    clientData.setSelectingPosYInput(y);
                 }
             }
         }

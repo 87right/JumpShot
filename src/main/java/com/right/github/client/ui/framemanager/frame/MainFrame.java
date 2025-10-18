@@ -29,6 +29,8 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
     private int mouseX = 0;
     private int mouseY = 0;
 
+    public boolean ss = false;
+
     private boolean isInputConsumedByUI = false;
     private String textingText = "";
     private boolean enter = false;

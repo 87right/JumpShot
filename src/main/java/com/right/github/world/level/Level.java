@@ -58,7 +58,7 @@ public class Level {
         if(!pBlockPos.isOutOfStage()){
             return Blocks.blocks.get(blockStates[pBlockPos.getY()][pBlockPos.getX()].getType()).getBLOCK();
         }
-        return Blocks.AIR;
+        return Blocks.WALL;
     }
 
     public void keyInputs(KeyInputsPacket pKeyInputsPacket) {
@@ -92,7 +92,7 @@ public class Level {
 
     public BlockState copyBlockStates(BlockPos blockPos) {
         if (blockPos.isOutOfStage()){
-            return new BlockState(0, 0);
+            return new BlockState(1, 0);
         }
         return blockStates[blockPos.getY()][blockPos.getX()].copy();
     }

@@ -5,6 +5,7 @@ import main.java.com.right.github.core.Pos;
 import main.java.com.right.github.shared.packet.KeyInputsPacket;
 import main.java.com.right.github.shared.packet.Packet;
 import main.java.com.right.github.world.entity.Bullet;
+import main.java.com.right.github.world.entity.Entity;
 import main.java.com.right.github.world.entity.Player;
 import main.java.com.right.github.world.level.Level;
 
@@ -25,8 +26,12 @@ public class World {
     }
 
     public void loadLevel(Queue<Packet> toSendPacket, String pName){
-        level = new Level(toSendPacket, JSSFManager.read(pName));
-        level.summonEntity(new Player(new Pos(80, 80), toSendPacket));
-        level.summonEntity(new Bullet(new Pos(80, 80), toSendPacket));
+        JSSFManager.RawStageData rawStageData = JSSFManager.read(pName);
+        level = new Level(toSendPacket, rawStageData.blockStates());
+
+        Queue<Entity.RawEntityData> rawEntityData = rawStageData.rawEntityData();
+        while (!rawEntityData.isEmpty()){
+            level.summonEntity(Entity.readeRawEntityData(toSendPacket, rawEntityData.poll()));
+        }
     }
 }

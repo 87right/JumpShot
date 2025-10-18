@@ -6,6 +6,7 @@ import main.java.com.right.github.core.DisplayObjectData;
 import main.java.com.right.github.core.TextureManager;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class StagePanelManager extends AbstractPanelManager{
     private final BufferedImage BACKGROUND_TEST = TextureManager.getTexture("background/test.png");

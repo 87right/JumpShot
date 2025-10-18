@@ -87,4 +87,18 @@ public class Entity {
                 pLevel.getBlock(new BlockPos(pos.move((float) Configs.PLAYER_WIDTH / 2, Configs.PLAYER_HEIGHT + 0.01f))).hasCollision()|
                 pLevel.getBlock(new BlockPos(pos.move(EPSILON, Configs.PLAYER_HEIGHT + 0.01f))).hasCollision();
     }
+
+    public record RawEntityData(
+            int id, // 32
+            float posX, // 32
+            float posY, // 32
+            long state // 64
+    ){}
+
+    public static Entity readeRawEntityData(Queue<Packet> packetsServerToClient, RawEntityData rawEntityData){
+        switch (rawEntityData.id){
+            case 1: return new Player(new Pos(rawEntityData.posX, rawEntityData.posY), packetsServerToClient);
+            default: throw new RuntimeException();
+        }
+    }
 }

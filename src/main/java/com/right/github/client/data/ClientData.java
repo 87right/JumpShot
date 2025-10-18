@@ -44,6 +44,8 @@ public class ClientData{
     private IntegerObject selectingBlockPosInput;
     // endregion
     // region SELECTING POS
+    private FloatObject selectingPosXInput;
+    private FloatObject selectingPosYInput;
     // endregion
     // region SETTING
     // endregion
@@ -154,6 +156,18 @@ public class ClientData{
     }
 // endregion
     // region SELECTING POS
+    public void setSelectingPosXInput(float selectingPosXInput){
+        this.selectingPosXInput.setValue(selectingPosXInput);
+    }
+    public void setSelectingPosXInput(FloatObject selectingPosXInput){
+        this.selectingPosXInput = selectingPosXInput;
+    }
+    public void setSelectingPosYInput(float selectingPosYInput){
+        this.selectingPosYInput.setValue(selectingPosYInput);
+    }
+    public void setSelectingPosYInput(FloatObject selectingPosYInput){
+        this.selectingPosYInput = selectingPosYInput;
+    }
     // endregion
     // region SETTING
     // endregion

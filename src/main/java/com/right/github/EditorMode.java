@@ -28,6 +28,11 @@ public class EditorMode {
         final StringObject responseString = new StringObject("");
         final IntegerObject responseInteger = new IntegerObject(-1);
 
+        final FloatObject responseFloatX1 = new FloatObject(-1.0f);
+        final FloatObject responseFloatY1 = new FloatObject(-1.0f);
+        final FloatObject responseFloatX2 = new FloatObject(-1.0f);
+        final FloatObject responseFloatY2 = new FloatObject(-1.0f);
+
 
         final SelectableItem[] menuRMB = {
                 new SelectableItem("Edit Block State", 1),
@@ -356,7 +361,23 @@ public class EditorMode {
                     }
                     // 定規
                     case 11:{
-
+                        if (responseFloatX1.getValue() == -1.0 || responseFloatY1.getValue() == -1.0){
+                            packetsServerToClient.add(new ClientModeSendDataPacket.SelectingPos(responseFloatX1, responseFloatY1));
+                            packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.SELECTING_POS_MODE));
+                            break;
+                        }
+                        if (responseFloatX2.getValue() == -1.0 || responseFloatY2.getValue() == -1.0){
+                            packetsServerToClient.add(new ClientModeSendDataPacket.SelectingPos(responseFloatX2, responseFloatY2));
+                            packetsServerToClient.add(new ClientModeRequestPacket(EnumUIModes.SELECTING_POS_MODE));
+                            break;
+                        }
+                        System.out.println(responseFloatX1.getValue()+" "+responseFloatY1.getValue()+" "+responseFloatX2.getValue()+" "+responseFloatY2.getValue());
+                        responseFloatX1.setValue(-1);
+                        responseFloatY1.setValue(-1);
+                        responseFloatX2.setValue(-1);
+                        responseFloatY2.setValue(-1);
+                        phase = 3;
+                        break;
                     }
                     default:{
                         Logs.Warn("Unexpected Status.");
