@@ -28,6 +28,7 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
 
     private int mouseX = 0;
     private int mouseY = 0;
+    private boolean dragging = false;
 
     public boolean ss = false;
 
@@ -143,6 +144,21 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
     @Override
     public void mousePressed(MouseEvent e) {
         if (isInputConsumedByUI){
+            // マウスのボタンが押し下げられた
+            switch ( e.getButton() ) {
+                case MouseEvent.BUTTON1:
+//                System.out.println("左押し下げ");
+                    uiInput = uiInput | lmb;
+                    break;
+                case MouseEvent.BUTTON2:
+//                System.out.println("ホイール押し下げ");
+                    uiInput = uiInput | mmb;
+                    break;
+                case MouseEvent.BUTTON3:
+//                System.out.println("右押し下げ");
+                    uiInput = uiInput | rmb;
+                    break;
+            }
             return;
         }
         // マウスのボタンが押し下げられた
@@ -165,6 +181,21 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
     @Override
     public void mouseReleased(MouseEvent e) {
         if (isInputConsumedByUI){
+            // マウスのボタンが離された
+            switch ( e.getButton() ) {
+                case MouseEvent.BUTTON1:
+//                System.out.println("左離し");
+                    uiInput = uiInput & ~lmb;
+                    break;
+                case MouseEvent.BUTTON2:
+//                System.out.println("ホイール離し");
+                    uiInput = uiInput & ~mmb;
+                    break;
+                case MouseEvent.BUTTON3:
+//                System.out.println("右離し");
+                    uiInput = uiInput & ~mmb;
+                    break;
+            }
             return;
         }
         // マウスのボタンが離された
@@ -213,6 +244,7 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
         if (!isInputConsumedByUI){
             return;
         }
+        dragging = true;
         mouseX = e.getX();
         mouseY = e.getY();
     }
@@ -221,6 +253,7 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
         if (!isInputConsumedByUI){
             return;
         }
+        dragging = false;
         mouseX = e.getX();
         mouseY = e.getY();
     }
@@ -254,6 +287,9 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
     }
     public void checkedUIInput() {
         uiInput = uiInput & ~flagChanged;
+    }
+    public boolean isDragging() {
+        return dragging;
     }
 
     public boolean enter() {

@@ -6,6 +6,8 @@ import main.java.com.right.github.client.ui.framemanager.frame.MainFrame;
 import main.java.com.right.github.core.Configs;
 
 public class SelectingBlockPosFrameManager extends AbstractFrameManager{
+    int preBlockPosX = -1;
+    int preBlockPosY = -1;
     @Override
     public void enter(MainFrame frame, ClientNet clientNet, ClientData clientData) {
         frame.setInputConsumedByUI(true);
@@ -15,7 +17,16 @@ public class SelectingBlockPosFrameManager extends AbstractFrameManager{
     public void input(MainFrame frame, ClientNet clientNet, ClientData clientData) {
         clientData.setMouseX(frame.getMouseX());
         clientData.setMouseY(frame.getMouseY());
-        if (frame.getUiInput() < 0){
+        if (frame.isDragging()){
+            int blockPosX = clientData.getMouseX() / Configs.BLOCK_SIZE;
+            int blockPosY = clientData.getMouseY() / Configs.BLOCK_SIZE;
+            if (blockPosX != preBlockPosX || blockPosY != preBlockPosY){
+                clientData.setSelectingBlockPosInput((frame.getUiInput()& 0b111111) | ((blockPosX + blockPosY * Configs.STAGE_WIDTH) << 6));
+                clientNet.response();
+                preBlockPosX = blockPosX;
+                preBlockPosY = blockPosY;
+            }
+        }else if (frame.getUiInput() < 0){
             frame.checkedUIInput();
             int blockPosX = clientData.getMouseX() / Configs.BLOCK_SIZE;
             int blockPosY = clientData.getMouseY() / Configs.BLOCK_SIZE;
