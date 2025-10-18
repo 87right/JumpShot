@@ -50,8 +50,9 @@ public class JSSFManager {
         return new RawStageData(blockStates, rawEntityData);
     }
 
-    public static BlockState[][] readWithFullPath(String pName){
-        BlockState[][] resultBlockState = new BlockState[15][20];
+    public static RawStageData readWithFullPath(String pName){
+        BlockState[][] blockStates = new BlockState[15][20];
+        Queue<Entity.RawEntityData> rawEntityData = new ArrayDeque<>();
 
         try(FileInputStream is = new FileInputStream(FULL_STAGE_FILE_DIR + pName + ".jssf");
             BufferedInputStream bis = new BufferedInputStream(Objects.requireNonNull(is));
@@ -61,14 +62,26 @@ public class JSSFManager {
                 for (int x = 0; x < 20; x++) {
                     int type = dis.readInt();
                     long state = dis.readLong();
-                    resultBlockState[y][x] = new BlockState(type, state);
+                    blockStates[y][x] = new BlockState(type, state);
+                }
+            }
+
+            while (true) {
+                try {
+                    int type = dis.readInt();
+                    float posX = dis.readFloat();
+                    float posY = dis.readFloat();
+                    long state = dis.readLong();
+                    rawEntityData.add(new Entity.RawEntityData(type, posX, posY, state));
+                } catch (Exception e) {
+                    break;
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return resultBlockState;
+        return new RawStageData(blockStates, rawEntityData);
     }
 
     public static void write(String pName, BlockState[][] pBlockStates, float x, float y){

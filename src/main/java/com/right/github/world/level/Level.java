@@ -2,6 +2,7 @@ package main.java.com.right.github.world.level;
 
 
 import main.java.com.right.github.core.BlockPos;
+import main.java.com.right.github.core.Configs;
 import main.java.com.right.github.core.Pos;
 import main.java.com.right.github.core.Vec2D;
 import main.java.com.right.github.shared.packet.KeyInputsPacket;
@@ -24,6 +25,13 @@ public class Level {
 
     public Level(Queue<Packet> toSendPacket, BlockState[][] pBlockStates){
         blockStates = pBlockStates;
+
+        for (int y = 0; y < Configs.STAGE_HEIGHT; y++) {
+            for (int x = 0; x < Configs.STAGE_WIDTH; x++) {
+                Blocks.blocks.get(blockStates[y][x].getType()).getBLOCK().initialize(this, new BlockPos(x, y), blockStates[y][x]);
+            }
+        }
+
         toSendPacket.add(new LevelPacket.BlockStatesPacket.SendAllStatsPacket(blockStates));
     }
 

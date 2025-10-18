@@ -9,6 +9,8 @@ import main.java.com.right.github.shared.packet.ClientModeSendDataPacket;
 import main.java.com.right.github.shared.packet.LevelPacket;
 import main.java.com.right.github.shared.packet.Packet;
 import main.java.com.right.github.world.World;
+import main.java.com.right.github.world.entity.Entity;
+import main.java.com.right.github.world.entity.Player;
 import main.java.com.right.github.world.level.Level;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
@@ -431,8 +433,17 @@ public class EditorMode {
 
         @Override
         public void loadLevel(Queue<Packet> toSendPacket, String pName) {
-            level = new Level(toSendPacket, JSSFManager.readWithFullPath(pName));
+            JSSFManager.RawStageData data = JSSFManager.readWithFullPath(pName);
+            Queue<Entity.RawEntityData> rawEntityData = data.rawEntityData();
+            level = new Level(toSendPacket, data.blockStates());
             name = pName;
+            while (!rawEntityData.isEmpty()){
+                Entity entity = Entity.readeRawEntityData(toSendPacket, rawEntityData.poll());
+                if (entity instanceof Player){
+                    playerSpawnPosX = entity.getPos().getX();
+                    playerSpawnPosY = entity.getPos().getY();
+                }
+            }
         }
 
         private void setBlockState(BlockPos pBlockPos, BlockState pBlockState){

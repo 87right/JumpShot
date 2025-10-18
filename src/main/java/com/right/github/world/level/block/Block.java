@@ -6,6 +6,7 @@ import main.java.com.right.github.core.Configs;
 import main.java.com.right.github.world.entity.Bullet;
 import main.java.com.right.github.world.level.Level;
 import main.java.com.right.github.world.level.block.state.BlockBehavior;
+import main.java.com.right.github.world.level.block.state.BlockState;
 
 public class Block extends BlockBehavior {
     private BlockBehavior blockBehavior;
@@ -20,4 +21,5 @@ public class Block extends BlockBehavior {
     }
 
     public void bulletReaction(Level level, BlockPos blockPos, Bullet bullet){}
+    public void initialize(Level level, BlockPos blockPos, BlockState blockState){}
 }
