@@ -140,10 +140,9 @@ public class Player extends Entity {
         }else if (velocity.getY() > 10.0f){
             velocity.setY(10.0f);
         }
-
         if ((keyInput & (1 << 3)) > 0){
             keyInput = keyInput & ~(1 << 3);
-            pLevel.createBullet("blue", getPos());
+            pLevel.createBullet("blue", getPos(), new Vec2D(mouseX -getPos().getX(), mouseY - getPos().getY()).normalize().times(10.0f));
         }
 
         getDisplayObjectData().setX(pos.getX());

@@ -45,4 +45,8 @@ public class Vec2D {
     public void addY(float pY){
         y += pY;
     }
+
+    public Vec2D normalize(){
+        return this.times((float) (1.0f / Math.sqrt(x*x + y*y)));
+    }
 }

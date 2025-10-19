@@ -32,6 +32,7 @@ public class Level {
             }
         }
 
+        entities.add(new Bullet(new Pos(0, 0), toSendPacket));
         toSendPacket.add(new LevelPacket.BlockStatesPacket.SendAllStatsPacket(blockStates));
     }
 
@@ -89,10 +90,18 @@ public class Level {
         blockStates[pBlockPos.getY()][pBlockPos.getX()] = pBlockState;
     }
 
-    public void createBullet(String color, Pos pos){
+    public void createBullet(String color, Pos pos, Vec2D vec){
         for (Entity entity : entities){
             if (entity instanceof Bullet bullet){
-                bullet.create(pos, new Vec2D(0, -10));
+                bullet.create(pos, vec);
+                return;
+            }
+        }
+    }
+    public void deleteBullet(String color){
+        for (Entity entity : entities){
+            if (entity instanceof Bullet bullet){
+                bullet.delete();
                 return;
             }
         }

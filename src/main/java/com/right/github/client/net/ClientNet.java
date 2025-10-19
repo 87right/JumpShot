@@ -44,6 +44,8 @@ public class ClientNet{
                     }
                 }else if (levelPacket instanceof PlayerPacket.SendStatePacket sendStatePacket) {
                     clientData.addDisplayObjectData(sendStatePacket.getDisplayObjectData());
+                } else if (levelPacket instanceof EntityPacket entityPacket) {
+                    clientData.addDisplayObjectData(entityPacket.getDisplayObjectData());
                 }
             } else if (currentPacket instanceof ClientModeRequestPacket clientModeRequestPacket) {
                 clientData.requestUIMode(clientModeRequestPacket.getUiModes());
