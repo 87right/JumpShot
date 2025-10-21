@@ -1,16 +1,10 @@
 package main.java.com.right.github.server;
 
 
-import main.java.com.right.github.client.ui.EnumUIModes;
-import main.java.com.right.github.core.Configs;
-import main.java.com.right.github.core.IntegerObject;
-import main.java.com.right.github.core.SelectableItem;
-import main.java.com.right.github.core.StringObject;
 import main.java.com.right.github.shared.packet.*;
 import main.java.com.right.github.server.game.Game;
 import main.java.com.right.github.shared.Logs;
 
-import java.util.Objects;
 import java.util.Queue;
 
 public class Server {
@@ -34,7 +28,7 @@ public class Server {
     public void start(Queue<Packet> pPacketsToSend, EnumServerType pServerType) {
         serverType = pServerType;
         game.start(pPacketsToSend);
-        pPacketsToSend.add(new ClientModeRequestPacket(EnumUIModes.STAGE_MODE));
+//        pPacketsToSend.add(new ClientModeRequestPacket(EnumUIModes.STAGE_MODE));
     }
     public void update(Queue<Packet> pReceivedPackets, Queue<Packet> pPacketsToSend){
         checkPackets(pReceivedPackets);

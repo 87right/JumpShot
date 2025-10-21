@@ -47,8 +47,7 @@ public class ClientNet{
                 } else if (levelPacket instanceof EntityPacket entityPacket) {
                     clientData.addDisplayObjectData(entityPacket.getDisplayObjectData());
                 }
-            } else if (currentPacket instanceof ClientModeRequestPacket clientModeRequestPacket) {
-                clientData.requestUIMode(clientModeRequestPacket.getUiModes());
+
             } else if (currentPacket instanceof ClientModeSendDataPacket clientModeSendDataPacket) {
                 if (clientModeSendDataPacket instanceof ClientModeSendDataPacket.ChoosingItem(
                         SelectableItem[] selectableItems,

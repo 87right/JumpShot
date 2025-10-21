@@ -20,7 +20,7 @@ public class Client {
 
         clientNet = new ClientNet(pPacketsClientToServer, pPacketsServerToClient, exitPacket);
         clientData = new ClientData();
-        clientUI = new ClientUI(exitPacket);
+        clientUI = new ClientUI(exitPacket, clientData);
     }
 
     public void start() {

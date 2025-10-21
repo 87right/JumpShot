@@ -1,11 +1,9 @@
 package main.java.com.right.github.client.data;
 
-import main.java.com.right.github.client.ui.EnumUIModes;
+import main.java.com.right.github.client.ui.component.AbstractComponent;
 import main.java.com.right.github.core.*;
-import main.java.com.right.github.shared.packet.ClientModeSendDataPacket;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -13,14 +11,16 @@ public class ClientData{
     // 各モードで使われるデータたち
     // region COMMON
     private boolean isRunning;
-    private EnumUIModes currentUIMode = EnumUIModes.LOADING_MODE;
-    private EnumUIModes requestedUIMode = EnumUIModes.LOADING_MODE;
 
     private int mouseX = 0;
     private int mouseY = 0;
 
     public final BufferedImage BACKGROUND_SELECT = TextureManager.getTexture("background/select.png");
     public final BufferedImage BACKGROUND_TYPE_TEXT = TextureManager.getTexture("background/type_text.png");
+
+    private final ArrayList<AbstractComponent> components = new ArrayList<>();
+
+    public int screenWidth, screenHeight;
     // endregion
     // region STAGE
     private BlockState[][] blockStates = null;
@@ -65,12 +65,6 @@ public class ClientData{
     public void stop(){
         isRunning = false;
     }
-    public EnumUIModes getCurrentUIMode() {
-        return currentUIMode;
-    }
-    public EnumUIModes getRequestedUIMode() {
-        return requestedUIMode;
-    }
     public int getMouseX() {
         return mouseX;
     }
@@ -84,15 +78,15 @@ public class ClientData{
     public void setMouseX(int mouseX) {
         this.mouseX = mouseX;
     }
-    public void setMouseY(int mouseY) {
-        this.mouseY = mouseY;
+
+    public ArrayList<AbstractComponent> getComponents() {
+        return components;
     }
-    public void setCurrentUIMode(EnumUIModes currentUIMode) {
-        this.currentUIMode = currentUIMode;
+    public void addComponent(AbstractComponent component){
+        components.add(component);
     }
-    public void requestUIMode(EnumUIModes requestedUIMode) {
-        this.requestedUIMode = requestedUIMode;
-    }
+    public void clearComponent(){components.clear();}
+
     // endregion
     // region STAGE
     public BlockState[][] getBlockStates() {
