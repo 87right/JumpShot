@@ -22,6 +22,7 @@ public class Level {
     private final BlockState[][] blockStates;
     private Player player;
     private final ArrayList<Entity> entities = new ArrayList<>();
+    public boolean clearFlag = false;
 
     public Level(Queue<Packet> toSendPacket, BlockState[][] pBlockStates){
         blockStates = pBlockStates;

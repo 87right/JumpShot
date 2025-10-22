@@ -19,5 +19,6 @@ public class Goal extends Block{
     @Override
     public void bulletReaction(Level level, BlockPos blockPos, Bullet bullet) {
         bullet.delete();
+        level.clearFlag = true;
     }
 }

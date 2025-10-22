@@ -4,8 +4,6 @@ import main.java.com.right.github.client.data.ClientData;
 import main.java.com.right.github.client.net.ClientNet;
 import main.java.com.right.github.client.ui.menu.AbstractMenu;
 import main.java.com.right.github.client.ui.menu.AllMenu;
-import main.java.com.right.github.client.ui.menu.MainGame;
-import main.java.com.right.github.client.ui.menu.TItleMenu;
 import main.java.com.right.github.client.ui.menu.frame.MainFrame;
 import main.java.com.right.github.client.ui.menu.panel.MainPanel;
 import main.java.com.right.github.core.Configs;
@@ -52,17 +50,22 @@ public class ClientUI {
     }
 
     public void update() {
-        currentMenu.input();
-        currentMenu.draw();
+        if (clientData.requestedMenu != -1){
+            changeMode(allMenu.getFromID(clientData.requestedMenu));
+            clientData.requestedMenu = -1;
+        }
+
+        currentMenu.input(clientNet);
+        currentMenu.draw(clientNet);
         panel.rewrite();
     }
 
     public void end() {}
 
     private void changeMode(AbstractMenu menu){
-        if (currentMenu != null){currentMenu.exit();}
+        if (currentMenu != null){currentMenu.exit(clientNet);}
         currentMenu = menu;
-        if (menu != null){currentMenu.enter();}
+        if (menu != null){currentMenu.enter(clientNet);}
     }
 
 }

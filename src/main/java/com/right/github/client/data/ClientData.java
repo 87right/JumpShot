@@ -1,6 +1,7 @@
 package main.java.com.right.github.client.data;
 
 import main.java.com.right.github.client.ui.component.AbstractComponent;
+import main.java.com.right.github.client.ui.menu.AbstractMenu;
 import main.java.com.right.github.core.*;
 import main.java.com.right.github.world.level.block.state.BlockState;
 
@@ -21,6 +22,7 @@ public class ClientData{
     private final ArrayList<AbstractComponent> components = new ArrayList<>();
 
     public int screenWidth, screenHeight;
+    public int requestedMenu = -1;
     // endregion
     // region STAGE
     private BlockState[][] blockStates = null;

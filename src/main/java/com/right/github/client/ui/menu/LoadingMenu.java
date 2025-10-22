@@ -1,6 +1,7 @@
 package main.java.com.right.github.client.ui.menu;
 
 import main.java.com.right.github.client.data.ClientData;
+import main.java.com.right.github.client.net.ClientNet;
 import main.java.com.right.github.client.ui.menu.frame.MainFrame;
 import main.java.com.right.github.client.ui.menu.panel.MainPanel;
 import main.java.com.right.github.core.TextureManager;
@@ -14,8 +15,8 @@ public class LoadingMenu extends AbstractMenu{
     }
 
     @Override
-    public void enter() {
-        super.enter();
+    public void enter(ClientNet clientNet) {
+        super.enter(clientNet);
         panel.renderManager.getGraBackground().drawImage(LOADING, 0, 0, panel);
     }
 }

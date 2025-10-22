@@ -11,8 +11,8 @@ public class KeyCommand {
     private int state;
     private static final int STATE_CHANGE_FLAG = 31;
     private final KeyBind[] keyBinds = {
-            new KeyBind("left", KeyEvent.VK_A, 0),
-            new KeyBind("right", KeyEvent.VK_D, 1),
+            new KeyBind("left", KeyEvent.VK_A, 1),
+            new KeyBind("right", KeyEvent.VK_D, 0),
             new KeyBind("jump", KeyEvent.VK_SPACE, 2),
     };
 

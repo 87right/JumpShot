@@ -38,38 +38,46 @@ public class ClientNet{
             if (currentPacket instanceof ExitPacket){
                 exitPacket.turnOnFlag();
             } else if (currentPacket instanceof LevelPacket levelPacket) {
-                if (levelPacket instanceof LevelPacket.BlockStatesPacket blockStatesPacket){
-                    if (blockStatesPacket instanceof LevelPacket.BlockStatesPacket.SendAllStatsPacket sendAllStatsPacket){
-                        clientData.setBlockStates(sendAllStatsPacket.getBlockStates());
+                switch (levelPacket) {
+                    case LevelPacket.BlockStatesPacket blockStatesPacket -> {
+                        if (blockStatesPacket instanceof LevelPacket.BlockStatesPacket.SendAllStatsPacket sendAllStatsPacket) {
+                            clientData.setBlockStates(sendAllStatsPacket.getBlockStates());
+                        }
                     }
-                }else if (levelPacket instanceof PlayerPacket.SendStatePacket sendStatePacket) {
-                    clientData.addDisplayObjectData(sendStatePacket.getDisplayObjectData());
-                } else if (levelPacket instanceof EntityPacket entityPacket) {
-                    clientData.addDisplayObjectData(entityPacket.getDisplayObjectData());
+                    case PlayerPacket.SendStatePacket sendStatePacket ->
+                            clientData.addDisplayObjectData(sendStatePacket.getDisplayObjectData());
+                    case EntityPacket entityPacket ->
+                            clientData.addDisplayObjectData(entityPacket.getDisplayObjectData());
+                    default -> {}
                 }
 
             } else if (currentPacket instanceof ClientModeSendDataPacket clientModeSendDataPacket) {
-                if (clientModeSendDataPacket instanceof ClientModeSendDataPacket.ChoosingItem(
-                        SelectableItem[] selectableItems,
-                        IntegerObject responseAddress
-                )){
-                    clientData.setSelectableItems(selectableItems);
-                    clientData.setResponseAddress(responseAddress);
-                } else if (clientModeSendDataPacket instanceof ClientModeSendDataPacket.SelectingBlockPos(
-                        IntegerObject responseAddress
-                )) {
-                    clientData.setSelectingBlockPosInput(responseAddress);
-                } else if (clientModeSendDataPacket instanceof ClientModeSendDataPacket.InputtingText(
-                        StringObject responseAddress
-                )) {
-                    clientData.setInputText(responseAddress);
-                }else if (clientModeSendDataPacket instanceof ClientModeSendDataPacket.SelectingPos(
-                        FloatObject x,
-                        FloatObject y
-                )) {
-                    clientData.setSelectingPosXInput(x);
-                    clientData.setSelectingPosYInput(y);
+                switch (clientModeSendDataPacket) {
+                    case ClientModeSendDataPacket.ChoosingItem(
+                            SelectableItem[] selectableItems,
+                            IntegerObject responseAddress
+                    ) -> {
+                        clientData.setSelectableItems(selectableItems);
+                        clientData.setResponseAddress(responseAddress);
+                    }
+                    case ClientModeSendDataPacket.SelectingBlockPos(
+                            IntegerObject responseAddress
+                    ) -> clientData.setSelectingBlockPosInput(responseAddress);
+                    case ClientModeSendDataPacket.InputtingText(
+                            StringObject responseAddress
+                    ) -> clientData.setInputText(responseAddress);
+                    case ClientModeSendDataPacket.SelectingPos(
+                            FloatObject x,
+                            FloatObject y
+                    ) -> {
+                        clientData.setSelectingPosXInput(x);
+                        clientData.setSelectingPosYInput(y);
+                    }
+                    default -> {}
                 }
+            } else if (currentPacket instanceof StageClearPacket(boolean isLast)) {
+                System.out.println("ClientNet.update Received Stage Clear Packet. is Last: "+ isLast);
+                clientData.requestedMenu = 5;
             }
         }
         if (exitPacket.getFlag()){
