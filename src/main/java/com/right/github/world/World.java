@@ -21,9 +21,10 @@ public class World {
     private int currentStage = 0;
 
     public World(){
+        STAGES.add("test_1");
+        STAGES.add("test_2");
+        STAGES.add("test_3");
         STAGES.add("test");
-        STAGES.add("example");
-        STAGES.add("oh_my_god");
     }
 
     public void update(Queue<Packet> toSendPacket){
