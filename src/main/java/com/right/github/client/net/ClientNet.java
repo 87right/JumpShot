@@ -1,11 +1,6 @@
 package main.java.com.right.github.client.net;
 
 import main.java.com.right.github.client.data.ClientData;
-import main.java.com.right.github.core.FloatObject;
-import main.java.com.right.github.core.IntegerObject;
-import main.java.com.right.github.core.SelectableItem;
-import main.java.com.right.github.core.StringObject;
-import main.java.com.right.github.shared.packet.ClientModeRequestPacket;
 import main.java.com.right.github.shared.packet.*;
 
 import java.util.Queue;
@@ -52,31 +47,6 @@ public class ClientNet{
                             clientData.addDisplayObjectData(entityPacket.getDisplayObjectData());
                     default -> {}
                 }
-
-            } else if (currentPacket instanceof ClientModeSendDataPacket clientModeSendDataPacket) {
-                switch (clientModeSendDataPacket) {
-                    case ClientModeSendDataPacket.ChoosingItem(
-                            SelectableItem[] selectableItems,
-                            IntegerObject responseAddress
-                    ) -> {
-                        clientData.setSelectableItems(selectableItems);
-                        clientData.setResponseAddress(responseAddress);
-                    }
-                    case ClientModeSendDataPacket.SelectingBlockPos(
-                            IntegerObject responseAddress
-                    ) -> clientData.setSelectingBlockPosInput(responseAddress);
-                    case ClientModeSendDataPacket.InputtingText(
-                            StringObject responseAddress
-                    ) -> clientData.setInputText(responseAddress);
-                    case ClientModeSendDataPacket.SelectingPos(
-                            FloatObject x,
-                            FloatObject y
-                    ) -> {
-                        clientData.setSelectingPosXInput(x);
-                        clientData.setSelectingPosYInput(y);
-                    }
-                    default -> {}
-                }
             } else if (currentPacket instanceof StageClearPacket(boolean isLast)) {
                 System.out.println("ClientNet.update Received Stage Clear Packet. is Last: "+ isLast);
                 clientData.requestedMenu = 5;
@@ -93,9 +63,6 @@ public class ClientNet{
 
     public void keyInputChanged(int content, int mouseX, int mouseY){
         packetsClientToServer.add(new KeyInputsPacket(content, mouseX, mouseY));
-    }
-    public void response(){
-        packetsClientToServer.add(new ClientModeSendDataPacket.Response());
     }
 
     public void sendStartRequest() {
