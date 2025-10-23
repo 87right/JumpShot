@@ -28,6 +28,7 @@ public class Player extends Entity {
         toSendPackets.add(new PlayerPacket.SendStatePacket(getDisplayObjectData()));
         setAABB(new AABB(Configs.PLAYER_WIDTH, Configs.PLAYER_HEIGHT));
 
+
         getDisplayObjectData().setImage(TEXTURE_R1);
     }
 

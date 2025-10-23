@@ -23,6 +23,7 @@ public class ClientData{
 
     public int screenWidth, screenHeight;
     public int requestedMenu = -1;
+    public boolean isFinished;
     // endregion
     // region STAGE
     private BlockState[][] blockStates = null;
@@ -110,6 +111,7 @@ public class ClientData{
     public void addDisplayObjectData(DisplayObjectData displayObjectData){
         this.displayObjectData.add(displayObjectData);
     }
+    public void clearDisplayObjectData(){displayObjectData.clear();}
     // endregion
     // region LOADING
     // endregion

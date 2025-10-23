@@ -98,6 +98,7 @@ public class Entity {
     public static Entity readeRawEntityData(Queue<Packet> packetsServerToClient, RawEntityData rawEntityData){
         switch (rawEntityData.id){
             case 1: return new Player(new Pos(rawEntityData.posX, rawEntityData.posY), packetsServerToClient);
+            case 2: return new Bullet(new Pos(rawEntityData.posX, rawEntityData.posY), packetsServerToClient);
             default: throw new RuntimeException();
         }
     }

@@ -44,8 +44,10 @@ public class ClientNet{
                             clientData.setBlockStates(sendAllStatsPacket.getBlockStates());
                         }
                     }
-                    case PlayerPacket.SendStatePacket sendStatePacket ->
-                            clientData.addDisplayObjectData(sendStatePacket.getDisplayObjectData());
+                    case PlayerPacket.SendStatePacket sendStatePacket -> {
+                        clientData.clearDisplayObjectData();
+                        clientData.addDisplayObjectData(sendStatePacket.getDisplayObjectData());
+                    }
                     case EntityPacket entityPacket ->
                             clientData.addDisplayObjectData(entityPacket.getDisplayObjectData());
                     default -> {}
@@ -78,6 +80,7 @@ public class ClientNet{
             } else if (currentPacket instanceof StageClearPacket(boolean isLast)) {
                 System.out.println("ClientNet.update Received Stage Clear Packet. is Last: "+ isLast);
                 clientData.requestedMenu = 5;
+                clientData.isFinished = isLast;
             }
         }
         if (exitPacket.getFlag()){
@@ -93,5 +96,9 @@ public class ClientNet{
     }
     public void response(){
         packetsClientToServer.add(new ClientModeSendDataPacket.Response());
+    }
+
+    public void sendStartRequest() {
+        packetsClientToServer.add(new CSStartRequestPacket());
     }
 }

@@ -33,7 +33,6 @@ public class Level {
             }
         }
 
-        entities.add(new Bullet(new Pos(0, 0), toSendPacket));
         toSendPacket.add(new LevelPacket.BlockStatesPacket.SendAllStatsPacket(blockStates));
     }
 

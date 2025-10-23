@@ -27,7 +27,7 @@ public class Server {
 
     public void start(Queue<Packet> pPacketsToSend, EnumServerType pServerType) {
         serverType = pServerType;
-        game.start(pPacketsToSend);
+        game.start();
 //        pPacketsToSend.add(new ClientModeRequestPacket(EnumUIModes.STAGE_MODE));
     }
     public void update(Queue<Packet> pReceivedPackets, Queue<Packet> pPacketsToSend){
@@ -52,6 +52,8 @@ public class Server {
                 isRunning = false;
             } else if (currentPacket instanceof KeyInputsPacket pKeyInputsPacket) {
                 game.keyInputs(pKeyInputsPacket);
+            } else if (currentPacket instanceof CSStartRequestPacket) {
+                game.start();
             }
         }
 

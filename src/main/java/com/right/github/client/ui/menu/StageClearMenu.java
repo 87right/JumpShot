@@ -36,7 +36,7 @@ public class StageClearMenu extends AbstractMenu {
         timer ++;
 
         if (timer >= 100){
-            clientData.requestedMenu = 0;
+            clientData.requestedMenu = clientData.isFinished ? 2:0;
         }
         return 0;
     }
@@ -45,9 +45,12 @@ public class StageClearMenu extends AbstractMenu {
     public void enter(ClientNet clientNet) {
         super.enter(clientNet);
         timer = 0;
+        frame.keyCommand.active = false;
         Graphics2D gra = panel.renderManager.getGraParticles();
         gra.setColor(new Color(0, 0, 0, 64));
         gra.fillRect(0, 0, 800, 600);
+        clientNet.keyInputChanged(0,0, 0);
+        frame.keyCommand.resetState();
     }
 
     @Override

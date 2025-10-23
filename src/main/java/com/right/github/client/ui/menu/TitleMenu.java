@@ -27,6 +27,7 @@ public class TitleMenu extends AbstractMenu{
             switch (input){
                 case 1:{
                     clientData.requestedMenu = 0;
+                    clientNet.sendStartRequest();
                     break;
                 }
             }

@@ -19,6 +19,7 @@ public class World {
     protected Level level;
     private final ArrayList<String> STAGES = new ArrayList<>() ;
     private int currentStage = 0;
+    public boolean isFinished = false;
 
     public World(){
         STAGES.add("test_1");
@@ -28,18 +29,23 @@ public class World {
     }
 
     public void update(Queue<Packet> toSendPacket){
-        if (level == null){return;}
-        level.update(toSendPacket);
-
-        if (level.clearFlag){
-            if (currentStage == STAGES.size() - 1){
-                toSendPacket.add(new StageClearPacket(true));
-            }else {
-                toSendPacket.add(new StageClearPacket(false));
-                currentStage ++;
+        if (!isFinished){
+            if (level == null) {
                 loadLevel(toSendPacket, STAGES.get(currentStage));
             }
+            level.update(toSendPacket);
 
+            if (level.clearFlag) {
+                if (currentStage == STAGES.size() - 1) {
+                    toSendPacket.add(new StageClearPacket(true));
+                    isFinished = true;
+                } else {
+                    toSendPacket.add(new StageClearPacket(false));
+                    currentStage++;
+                    loadLevel(toSendPacket, STAGES.get(currentStage));
+                }
+
+            }
         }
     }
     public void keyInputs(KeyInputsPacket pKeyInputsPacket){
@@ -52,6 +58,7 @@ public class World {
         level = new Level(toSendPacket, rawStageData.blockStates());
 
         Queue<Entity.RawEntityData> rawEntityData = rawStageData.rawEntityData();
+        rawEntityData.add(new Entity.RawEntityData(2, 0, 0, 0));
         while (!rawEntityData.isEmpty()){
             level.summonEntity(Entity.readeRawEntityData(toSendPacket, rawEntityData.poll()));
         }
