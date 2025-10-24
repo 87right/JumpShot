@@ -49,4 +49,16 @@ public class Vec2D {
     public Vec2D normalize(){
         return this.times((float) (1.0f / Math.sqrt(x*x + y*y)));
     }
+    public Matrix getMatrix(){
+        float[][] value = {{x}, {y}, {1.0f}};
+        return new Matrix(value);
+    }
+    public void setValue(Matrix value){
+        float[][] input = value.getValue();
+        if (input == null || input.length != 3 || input[0].length != 1){
+            throw new IllegalArgumentException("This must be 3x1 matrix!");
+        }
+        x = input[0][0];
+        y = input[1][0];
+    }
 }

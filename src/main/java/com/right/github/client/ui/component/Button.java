@@ -22,7 +22,7 @@ public class Button extends AbstractComponent{
     }
 
     @Override
-    public boolean draw(MainPanel panel, ClientData clientData) {
+    public void draw(MainPanel panel, ClientData clientData) {
         Graphics2D gra = panel.renderManager.getGraUI();
         gra.setFont(new Font("Arial", Font.BOLD, height));
         if (!isHovered){
@@ -32,7 +32,6 @@ public class Button extends AbstractComponent{
             gra.drawImage(BUTTON_IMG, x - (int) (width * 0.1f), y - (int) (height * 0.1f), (int) (width * 1.2f), (int) (height * 1.2f), panel);
             gra.drawString(TEXT, x + width * 0.125f, y + height - 4);
         }
-        return false;
     }
 
     @Override

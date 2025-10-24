@@ -23,8 +23,8 @@ public class MainFrame extends JFrame implements KeyListener, MouseListener, Mou
         super();
         this.exitPacket = pExitPacket;
 
-        keyCommand = new KeyCommand(clientData);
-        keyTyping = new KeyTyping(clientData);
+        keyCommand = new KeyCommand();
+        keyTyping = new KeyTyping();
         mouseClick = new MouseClick(clientData);
         mouseMovement = new MouseMovement(clientData, getInsets());
 

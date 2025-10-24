@@ -1,11 +1,8 @@
 package main.java.com.right.github.client.ui.menu.frame.dispatch;
 
-import main.java.com.right.github.client.data.ClientData;
-
 import java.awt.event.KeyEvent;
 
 public class KeyCommand {
-    private final ClientData clientData;
     public boolean active = false;
 
     private int state;
@@ -16,7 +13,7 @@ public class KeyCommand {
             new KeyBind("jump", KeyEvent.VK_SPACE, 2),
     };
 
-    public KeyCommand(ClientData clientData){this.clientData = clientData;}
+    public KeyCommand(){}
 
     public void keyPressed(KeyEvent e){
         if (active){

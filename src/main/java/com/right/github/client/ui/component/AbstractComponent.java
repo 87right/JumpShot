@@ -10,6 +10,6 @@ public abstract class AbstractComponent {
         this.x = x; this.y = y; this.width = width; this.height = height;
     }
 
-    public abstract boolean draw(MainPanel panel, ClientData clientData);
+    public abstract void draw(MainPanel panel, ClientData clientData);
     public abstract int input(MainFrame frame, ClientData clientData);
 }

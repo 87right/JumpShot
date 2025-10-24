@@ -43,6 +43,10 @@ public class Entity {
         return velocity.copy();
     }
 
+    public void setVelocity(Matrix matrix){
+        velocity.setValue(matrix);
+    }
+
     public Vec2D getAcceleration() {
         return acceleration.copy();
     }
