@@ -13,6 +13,8 @@ public class Blocks {
     public static final Block WALL = register("wall", new Wall(new BlockBehavior.Properties().setHasCollision(true)));
     public static final Block GOAL = register("goal", new Goal(new BlockBehavior.Properties().setHasCollision(true)));
     public static final Block GROUND = register("ground", new Ground(new BlockBehavior.Properties().setHasCollision(true)));
+    public static final Block MIRROR_TLBR = register("mirror_tlbr", new Ground(new BlockBehavior.Properties().setHasCollision(true)));
+    public static final Block MIRROR_TRBL = register("mirror_trbl", new Ground(new BlockBehavior.Properties().setHasCollision(true)));
 
     private static Block register(String name, Block pBlock){
         blocks.put(id, new RegisteredBlock(pBlock, name, id));

@@ -48,6 +48,8 @@ public class EditorMode {
                 new SelectableItem("Air", 1),
                 new SelectableItem("Wall", 2),
                 new SelectableItem("Goal", 3),
+                new SelectableItem("Mirror TopLeft-BottomRight", 4),
+                new SelectableItem("Mirror TopRight-BottomLeft", 5),
         };
         final SelectableItem[] createOrEdit = {
                 new SelectableItem("Create New Stage", 1),
@@ -249,6 +251,16 @@ public class EditorMode {
                             case 3:{
                                 // ゴール
                                 blockState.setType(2);
+                                break;
+                            }
+                            case 4: {
+                                // 鏡 tlbr
+                                blockState.setType(4);
+                                break;
+                            }
+                            case 5:{
+                                // 鏡 trbl
+                                blockState.setType(5);
                                 break;
                             }
                         }
