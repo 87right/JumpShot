@@ -4,7 +4,7 @@ public class MathHelper {
 
     private MathHelper(){}
 
-    public Pos commonPoint(Pos pos1, Pos pos2, Pos pos3, Pos pos4){
+    public static Pos commonPoint(Pos pos1, Pos pos2, Pos pos3, Pos pos4){
         /*
         * 直線1 = pos1 : pos2
         * 直線2 = pos3 : pos4*/
