@@ -11,6 +11,7 @@ public class KeyCommand {
             new KeyBind("left", KeyEvent.VK_A, 1),
             new KeyBind("right", KeyEvent.VK_D, 0),
             new KeyBind("jump", KeyEvent.VK_SPACE, 2),
+            new KeyBind("esc", KeyEvent.VK_ESCAPE, 3),
     };
 
     public KeyCommand(){}

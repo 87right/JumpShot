@@ -53,6 +53,9 @@ public class MainGame extends AbstractMenu{
         if (frame.keyCommand.getState() < 0 || frame.mouseClick.getLMBState()){
             frame.keyCommand.checkedState();
             int state = frame.keyCommand.getState();
+            if ((state & 1 << 3) > 0){
+                clientData.requestedMenu = 1;
+            }
             if (frame.mouseClick.getLMBState()){state = state | 1 << 3;}
             clientNet.keyInputChanged(state, frame.mouseMovement.getMouseX(), frame.mouseMovement.getMouseY());
         }
@@ -62,6 +65,7 @@ public class MainGame extends AbstractMenu{
     @Override
     public void enter(ClientNet clientNet) {
         super.enter(clientNet);
+        clientData.clearComponent();
         panel.renderManager.getGraBackground().drawImage(TEST_BG, 0, 0, panel);
         frame.keyCommand.active = true;
         frame.mouseClick.active = true;
