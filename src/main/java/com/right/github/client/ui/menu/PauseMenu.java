@@ -45,7 +45,7 @@ public class PauseMenu extends AbstractMenu{
         gra.fillRect(0, 0, 800, 600);
         clientData.clearComponent();
         clientData.addComponent(new Button(300, 300, 200, 40, 1, "Go Back"));
-        clientData.addComponent(new Button(300, 300, 200, 40, 2, "Title"));
+        clientData.addComponent(new Button(300, 360, 200, 40, 2, "Title"));
     }
 
     @Override
