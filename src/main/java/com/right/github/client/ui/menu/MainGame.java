@@ -65,6 +65,7 @@ public class MainGame extends AbstractMenu{
     @Override
     public void enter(ClientNet clientNet) {
         super.enter(clientNet);
+        clientData.startTime = System.currentTimeMillis();
         clientData.clearComponent();
         panel.renderManager.getGraBackground().drawImage(TEST_BG, 0, 0, panel);
         frame.keyCommand.active = true;

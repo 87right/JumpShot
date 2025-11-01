@@ -32,6 +32,7 @@ public class ResultMenu extends AbstractMenu{
     @Override
     public void enter(ClientNet clientNet) {
         super.enter(clientNet);
+        clientData.endTime = System.currentTimeMillis();
         frame.mouseMovement.active = true;
         frame.keyCommand.active = false;
         panel.renderManager.getGraBackground().drawImage(STAGE_CLEAR_BG, 0, 0, panel);

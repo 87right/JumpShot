@@ -21,6 +21,10 @@ public class ClientData{
     private BlockState[][] blockStates = null;
     private final ArrayList<DisplayObjectData> displayObjectData = new ArrayList<>();
     private boolean isBlockChanged = false;
+
+    public long startTime;
+    public long endTime;
+    public boolean isRTA = false;
     // endregion
     // region LOADING
     // endregion

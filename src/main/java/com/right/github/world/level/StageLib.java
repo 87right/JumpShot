@@ -25,13 +25,13 @@ public class StageLib {
             "Amidakuzi",
     };
     public static final String[] HARD = {
+            "Hard3",
+            "BlockStage7",
             "MirrorStage4",
             "MirrorStage5",
-            "MirrorStage6",
-            "BlockStage7",
-            "PreStage1_4",
             "PreStage1_5",
-            "Hard3",
+            "PreStage1_4",
+            "MirrorStage6",
     };
     public static final String[] MYTHIC = {
             "Hard1",
