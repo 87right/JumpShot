@@ -22,10 +22,10 @@ public class World {
     public boolean isFinished = false;
 
     public World(){
-        STAGES.add("test_1");
-        STAGES.add("test_2");
-        STAGES.add("test_3");
-        STAGES.add("test");
+        STAGES.add("PreStage1_1");
+        STAGES.add("PreStage1_2");
+        STAGES.add("PreStage1_3");
+        STAGES.add("PreStage1_4");
     }
 
     public void update(Queue<Packet> toSendPacket){
