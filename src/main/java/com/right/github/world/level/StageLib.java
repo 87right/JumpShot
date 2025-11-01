@@ -38,6 +38,10 @@ public class StageLib {
     };
     public static final String[] RTA = {
             "RTA1",
+            "RTA2",
+            "RTA3",
+            "RTA4",
+            "RTA5",
     };
 
 }
