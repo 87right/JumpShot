@@ -49,6 +49,11 @@ public class SelectStoryMenu extends AbstractMenu{
             }
             case 5:{
                 clientData.requestedMenu = 0;
+                clientNet.sendStartRequest(StageLib.MYTHIC);
+                break;
+            }
+            case 6:{
+                clientData.requestedMenu = 0;
                 clientNet.sendStartRequest(StageLib.RTA);
                 break;
             }
@@ -71,7 +76,8 @@ public class SelectStoryMenu extends AbstractMenu{
         clientData.addComponent(new Button(200, 260, 400, 40, 2, "EASY"));
         clientData.addComponent(new Button(200, 320, 400, 40, 3, "NORMAL"));
         clientData.addComponent(new Button(200, 380, 400, 40, 4, "HARD"));
-        clientData.addComponent(new Button(200, 440, 400, 40, 5, "RTA"));
+        clientData.addComponent(new Button(200, 440, 400, 40, 5, "MYTHIC"));
+        clientData.addComponent(new Button(200, 500, 400, 40, 6, "RTA"));
 
         frame.keyTyping.active = true;
         frame.mouseMovement.active = true;
