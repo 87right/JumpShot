@@ -9,12 +9,15 @@ public class StageLib {
             "Tutrial3",
     };
     public static final String[] EASY = {
+            "Easy1",
+            "Easy2",
             "Tutrial4",
             "MirrorStage2",
             "PreStage1_1",
             "Labyrinth",
     };
     public static final String[] NORMAL = {
+            "Normal1",
             "MirrorStage1",
             "MirrorStage3",
             "Amidakuzi",
