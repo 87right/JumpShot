@@ -11,10 +11,20 @@ public class StageLib {
             "PreStage1_4",
     };
     public static final String[] EASY = {
-            "MirrorStage1"
+            "MirrorStage1",
+            "MirrorStage2",
+            "MirrorStage3",
+            "MirrorStage4",
+            "MirrorStage5",
     };
     public static final String[] NORMAL = {};
-    public static final String[] HARD = {};
+    public static final String[] HARD = {
+            "Hard1",
+            "Hard2",
+            "Hard3",
+            "Hard4",
+            "Hard5",
+    };
     public static final String[] RTA = {};
 
 }

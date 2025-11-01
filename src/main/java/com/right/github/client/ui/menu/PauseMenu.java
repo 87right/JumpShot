@@ -57,5 +57,6 @@ public class PauseMenu extends AbstractMenu{
         Graphics2D gra2 = panel.renderManager.getGraParticles();
         gra2.setComposite(AlphaComposite.Clear);
         gra2.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);
+        frame.mouseClick.consumeLMBReleased();
     }
 }
