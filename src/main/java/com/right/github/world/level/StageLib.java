@@ -28,7 +28,6 @@ public class StageLib {
             "MirrorStage4",
             "MirrorStage5",
             "MirrorStage6",
-            "Hard4",
             "BlockStage7",
             "PreStage1_4",
             "PreStage1_5",
@@ -37,7 +36,11 @@ public class StageLib {
     public static final String[] MYTHIC = {
             "Hard1",
             "Hard2",
+            "Hard4",
+            "Mythic3",
             "Hard5",
+            "Mythic1",
+            "Mythic2",
     };
     public static final String[] RTA = {
             "RTA1",
