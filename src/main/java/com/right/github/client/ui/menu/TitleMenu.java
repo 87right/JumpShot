@@ -7,6 +7,7 @@ import main.java.com.right.github.client.ui.menu.frame.MainFrame;
 import main.java.com.right.github.client.ui.menu.panel.MainPanel;
 import main.java.com.right.github.core.Configs;
 import main.java.com.right.github.core.TextureManager;
+import main.java.com.right.github.world.level.StageLib;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,8 +29,7 @@ public class TitleMenu extends AbstractMenu{
         if (input > 0){
             switch (input){
                 case 1:{
-                    clientData.requestedMenu = 0;
-                    clientNet.sendStartRequest();
+                    clientData.requestedMenu = 6;
                     break;
                 }
             }

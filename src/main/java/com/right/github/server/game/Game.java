@@ -22,8 +22,8 @@ public class Game {
         world.update(pPacketsToSend);
     }
 
-    public void start() {
-        world = new World();
+    public void start(String[] stageNames) {
+        world = new World(stageNames);
     }
 
     public void keyInputs(KeyInputsPacket pKeyInputsPacket) {

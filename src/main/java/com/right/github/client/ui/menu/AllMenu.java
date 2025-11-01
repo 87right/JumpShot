@@ -11,6 +11,7 @@ public class AllMenu {
     public final TitleMenu TITLE_MENU;
     public final LoadingMenu LOADING_MENU;
     public final StageClearMenu STAGE_CLEAR_MENU;
+    public final SelectStoryMenu SELECT_STORY_MENU;
 
     public AllMenu(MainFrame frame, MainPanel panel, ClientData clientData){
         MAIN_GAME = new MainGame(frame, panel, clientData);
@@ -19,6 +20,7 @@ public class AllMenu {
         TITLE_MENU = new TitleMenu(frame, panel, clientData);
         LOADING_MENU = new LoadingMenu(frame, panel, clientData);
         STAGE_CLEAR_MENU = new StageClearMenu(frame, panel, clientData);
+        SELECT_STORY_MENU = new SelectStoryMenu(frame, panel, clientData);
     }
 
     public AbstractMenu getFromID(int id){
@@ -29,6 +31,7 @@ public class AllMenu {
             case 3 -> TITLE_MENU;
             case 4 -> LOADING_MENU;
             case 5 -> STAGE_CLEAR_MENU;
+            case 6 -> SELECT_STORY_MENU;
             default -> LOADING_MENU;
         };
     }

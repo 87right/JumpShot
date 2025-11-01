@@ -8,6 +8,7 @@ import main.java.com.right.github.client.ui.menu.panel.MainPanel;
 import main.java.com.right.github.core.Configs;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public abstract class AbstractMenu {
     protected final MainFrame frame;
@@ -30,7 +31,9 @@ public abstract class AbstractMenu {
     public int input(ClientNet clientNet){
         for (AbstractComponent component : clientData.getComponents()){
             int input = component.input(frame, clientData);
-            if (input >0){return input;}
+            if (input >0){
+                return input;
+            }
         }
         return -1;
     }

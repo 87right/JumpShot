@@ -40,7 +40,8 @@ public class Button extends AbstractComponent{
                 && frame.mouseMovement.getMouseX() <= x + width
                 && frame.mouseMovement.getMouseY() >= y
                 && frame.mouseMovement.getMouseY() <= y + height;
-        if (frame.mouseClick.consumeLMBReleased() && isHovered){
+        if (isHovered && frame.mouseClick.consumeLMBReleased()){
+            System.out.println(ID);
             return ID;
         }
         return -1;

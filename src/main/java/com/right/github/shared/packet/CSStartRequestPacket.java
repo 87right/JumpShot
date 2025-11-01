@@ -1,3 +1,3 @@
 package main.java.com.right.github.shared.packet;
 
-public class CSStartRequestPacket implements Packet{}
+public record CSStartRequestPacket(String[] stageNames) implements Packet{}

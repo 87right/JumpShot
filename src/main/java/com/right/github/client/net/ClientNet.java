@@ -2,6 +2,7 @@ package main.java.com.right.github.client.net;
 
 import main.java.com.right.github.client.data.ClientData;
 import main.java.com.right.github.shared.packet.*;
+import main.java.com.right.github.world.level.StageLib;
 
 import java.util.Queue;
 
@@ -65,7 +66,7 @@ public class ClientNet{
         packetsClientToServer.add(new KeyInputsPacket(content, mouseX, mouseY));
     }
 
-    public void sendStartRequest() {
-        packetsClientToServer.add(new CSStartRequestPacket());
+    public void sendStartRequest(String[] stageNames) {
+        packetsClientToServer.add(new CSStartRequestPacket(stageNames));
     }
 }
