@@ -12,6 +12,7 @@ public class StageLib {
             "Tutrial4",
             "MirrorStage2",
             "PreStage1_1",
+            "Labyrinth",
     };
     public static final String[] NORMAL = {
             "MirrorStage1",
