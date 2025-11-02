@@ -3,44 +3,44 @@ package main.java.com.right.github.world.level;
 public class StageLib {
     private StageLib(){}
     public static final String[] TUTORIAL = {
-            "Tutrial1",
-            "Tutrial2",
-            "PreStage1_2",
-            "Tutrial3",
+            "Tutorial1",
+            "Tutorial2",
+            "Tutorial3",
+            "Tutorial4",
     };
     public static final String[] EASY = {
-            "PreStage1_1",
-            "MirrorStage2",
-            "Tutrial4",
             "Easy1",
             "Easy2",
-            "Labyrinth",
+            "Easy3",
+            "Easy4",
+            "Easy5",
+            "Easy6",
     };
     public static final String[] NORMAL = {
-            "MirrorStage1",
-            "PreStage1_3",
             "Normal1",
-            "BlockStage6",
-            "MirrorStage3",
-            "Amidakuzi",
+            "Normal2",
+            "Normal3",
+            "Normal4",
+            "Normal5",
+            "Normal6",
     };
     public static final String[] HARD = {
-            "Hard3",
-            "BlockStage7",
-            "MirrorStage4",
-            "MirrorStage5",
-            "PreStage1_5",
-            "PreStage1_4",
-            "MirrorStage6",
-    };
-    public static final String[] MYTHIC = {
             "Hard1",
             "Hard2",
+            "Hard3",
             "Hard4",
-            "Mythic3",
             "Hard5",
+            "Hard6",
+            "Hard7",
+    };
+    public static final String[] MYTHIC = {
             "Mythic1",
             "Mythic2",
+            "Mythic3",
+            "Mythic4",
+            "Mythic5",
+            "Mythic6",
+            "Mythic7",
     };
     public static final String[] RTA = {
             "RTA1",
