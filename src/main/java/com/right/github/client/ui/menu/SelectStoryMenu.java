@@ -58,6 +58,7 @@ public class SelectStoryMenu extends AbstractMenu{
                 break;
             }
         }
+        clientData.time = 0;
         return -1;
     }
 

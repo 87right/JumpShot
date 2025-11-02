@@ -22,9 +22,7 @@ public class ClientData{
     private final ArrayList<DisplayObjectData> displayObjectData = new ArrayList<>();
     private boolean isBlockChanged = false;
 
-    public long startTime;
-    public long endTime;
-    public boolean isRTA = false;
+    public long time;
     // endregion
     // region LOADING
     // endregion

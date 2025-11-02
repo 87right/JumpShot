@@ -34,7 +34,7 @@ public class ClientUI {
         frame.setBackground(Color.WHITE);	// windowの背景色設定
         frame.setResizable(true); // TODO: ReSizeの有効化&システム構築
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.setTitle("Hoge");
+        frame.setTitle("Jump Shot");
         frame.setVisible(true);
         insets = frame.getInsets();
         frame.setBounds(0, 0, Configs.SCREEN_WIDTH + insets.left + insets.right, Configs.SCREEN_HEIGHT + insets.top + insets.bottom);

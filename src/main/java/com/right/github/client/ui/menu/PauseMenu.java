@@ -40,6 +40,7 @@ public class PauseMenu extends AbstractMenu{
     @Override
     public void enter(ClientNet clientNet) {
         super.enter(clientNet);
+        frame.mouseClick.consumeLMBReleased();
         Graphics2D gra = panel.renderManager.getGraParticles();
         gra.setColor(new Color(0, 0, 0, 64));
         gra.fillRect(0, 0, 800, 600);
@@ -51,6 +52,7 @@ public class PauseMenu extends AbstractMenu{
     @Override
     public void exit(ClientNet clientNet) {
         super.exit(clientNet);
+        frame.mouseClick.consumeLMBReleased();
         Graphics2D gra1 = panel.renderManager.getGraUI();
         gra1.setComposite(AlphaComposite.Clear);
         gra1.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);

@@ -46,6 +46,7 @@ public class MainGame extends AbstractMenu{
 
     @Override
     public int input(ClientNet clientNet) {
+        clientData.time ++;
         Graphics2D gra = panel.renderManager.getGraEntities();
         gra.setComposite(AlphaComposite.Clear);
         gra.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);
@@ -59,13 +60,18 @@ public class MainGame extends AbstractMenu{
             if (frame.mouseClick.getLMBState()){state = state | 1 << 3;}
             clientNet.keyInputChanged(state, frame.mouseMovement.getMouseX(), frame.mouseMovement.getMouseY());
         }
+        Graphics2D gra1 = panel.renderManager.getGraParticles();
+        gra1.setComposite(AlphaComposite.Clear);
+        gra1.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);
+        Graphics2D gra2 = panel.renderManager.getGraParticles();
+        gra2.setFont(new Font("Arial", Font.BOLD, 20));
+        gra2.drawString("Time: "+(clientData.time / 30)+"."+(clientData.time % 30 / 3)+((clientData.time % 3) * 10 / 3)+"s", 10, 590);
         return 0;
     }
 
     @Override
     public void enter(ClientNet clientNet) {
         super.enter(clientNet);
-        clientData.startTime = System.currentTimeMillis();
         clientData.clearComponent();
         panel.renderManager.getGraBackground().drawImage(TEST_BG, 0, 0, panel);
         frame.keyCommand.active = true;
