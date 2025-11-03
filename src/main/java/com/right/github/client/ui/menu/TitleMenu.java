@@ -46,9 +46,9 @@ public class TitleMenu extends AbstractMenu{
         Graphics2D gra2 = panel.renderManager.getGraEntities();
         gra2.setComposite(AlphaComposite.Clear);
         gra2.fillRect(0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT);
-        panel.renderManager.getGraBackground().drawImage(TITLE_BG, 0, 0, panel);
+        panel.renderManager.getGraBackground().drawImage(TITLE_BG, 0, 0, Configs.SCREEN_WIDTH, Configs.SCREEN_HEIGHT, panel);
         clientData.clearComponent();
-        clientData.addComponent(new Button(300, 300, 200, 40, 1, "START"));
+        clientData.addComponent(new Button(10, 10, 200, 40, 1, "START"));
 
         frame.keyTyping.active = true;
         frame.mouseMovement.active = true;
