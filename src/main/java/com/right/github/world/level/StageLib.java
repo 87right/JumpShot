@@ -43,6 +43,14 @@ public class StageLib {
             "Mythic7",
     };
     public static final String[] RTA = {
+            "Easy4",
+            "Easy5",
+            "Normal3",
+            "Normal4",
+            "Normal5",
+            "Hard2",
+            "Hard5",
+            "Hard6",
             "RTA1",
             "RTA2",
             "RTA3",
